@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,6 +24,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaQuery;
 
 @Stateful
+@SessionScoped
 public class ProjectRepository {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)

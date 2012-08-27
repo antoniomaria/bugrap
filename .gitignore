@@ -1,4 +1,6 @@
 target/
 
+*.log
 /bugrap-ddd/.project
-/bugrap-ddd/.classpath
+/bugrap-ddd/.classpath
+
