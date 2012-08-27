@@ -21,7 +21,7 @@ import com.vaadin.bugrap.business.users.entity.Reporter;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name="",query="SELECT c FROM Comment c WHERE c.report=:rep")
+@NamedQuery(name=Comment.commentsForReport,query="SELECT c FROM Comment c WHERE c.report=:rep")
 public class Comment extends AbstractEntity {
 
         public static final String PREFIX ="com.vaadin.bugrap.business.reports.entity.Comment.";
