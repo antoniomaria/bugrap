@@ -1,0 +1,8 @@
+----------------------------------------------------------------
+2012-08-27 09:22:16.598 GMT:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.6.2.1 - (999685): instance a816c00e-0139-6763-7b41-0000030fba98 
+on database directory memory:/Users/abien/work/workspaces/vaadin/bugrap/bugrap-ddd/bugrapDB  with class loader sun.misc.Launcher$AppClassLoader@3c05b84b 
+Loaded from file:/Users/abien/.m2/repository/org/glassfish/extras/glassfish-embedded-all/3.1/glassfish-embedded-all-3.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_08-ea-b03
+Database Class Loader started - derby.database.classpath=''
