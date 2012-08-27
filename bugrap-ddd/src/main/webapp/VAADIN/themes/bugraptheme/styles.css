@@ -1,0 +1,318 @@
+@import url(../reindeer/styles.css);
+
+/* PROJECTS PANEL*/
+
+.v-verticallayout-projectpanel .v-label {
+	height: 30px;
+	border-left: 2px solid grey;
+}
+.v-verticallayout-projectpanel .v-button .v-icon, .v-nativebutton .v-icon {
+	height: 27px;
+	margin-left: 7px;
+	margin-right: 5px;
+}
+
+.v-verticallayout-projectpanel .v-button.v-button-link  {
+	margin-left: 10px;
+	margin-right: 8px;
+}
+
+.v-verticallayout-projectpanel .v-button.v-button-link:hover {
+	border-bottom: 1px solid grey;
+}
+
+.v-verticallayout-projectpanel .v-button-caption  {
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 14px;
+	color: black;
+	text-decoration: none;
+}
+
+.v-verticallayout-projectpanel .v-select-select {
+	color: grey;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 24px;
+	font-weight: lighter;
+	border: none;
+}
+
+.v-verticallayout-projectpanel {
+	border-bottom: 1px solid black;
+	background-color: white;
+}
+
+.v-verticallayout-projectpanel .v-verticallayout-margin {
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15x;
+	padding-bottom: 5px;
+}
+
+/* REPORTS PANEL: */
+
+.v-verticallayout-reportspanel {
+	background-color: white;
+}
+
+.v-anotherdistributionbar-caption {
+	float: left;
+	padding: 5px 0 0 11px;
+}
+
+.v-anotherdistributionbar-rightbar {
+	background-color: #E0E0E0 !important;
+}
+
+.v-horizontallayout-versionrow .v-select-select {
+	height: 25px;
+	border: none;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	padding-top: 2px;
+}
+
+.v-horizontallayout-versionrow .v-label {
+	width: 100%;
+	color: grey;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 16px;
+}	
+
+.v-horizontallayout-versionrow .v-horizontallayout-spacing-on {
+    padding-right: 10px;
+}
+.v-horizontallayout-versionrow .v-horizontallayout-margin {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 5px;
+}
+
+.v-buttongroup .v-button {
+	width: 100px;
+}
+
+.buttonleft {
+	border-radius: 0;
+}
+
+.buttoncenter {
+	border-radius: 0;
+}
+
+.buttonright {
+	border-radius: 0;
+}
+
+.buttonpressedleft,
+.buttonpressedleft .v-button,
+.buttonpressedleft .v-button-wrap,
+.buttonpressedleft .v-disabled.v-button .v-button-wrap  {
+	background-image: none !important;
+	background-color: #585858 !important;
+	border-top-left-radius:1em;
+	border-bottom-left-radius:1em;
+}
+
+.buttonpressedright,
+.buttonpressedright .v-button,
+.buttonpressedright .v-button-wrap,
+.buttonpressedright .v-disabled.v-button .v-button-wrap  {
+	background-image: none !important;
+	background-color: #585858 !important;
+	border-top-right-radius:1em;
+	border-bottom-right-radius:1em;
+	padding-right: 5px !important;
+	}
+
+.buttonpressed,
+.buttonpressed .v-button,
+.buttonpressed .v-button-wrap,
+.buttonpressed .v-disabled.v-button .v-button-wrap  {
+	background-image: none !important;
+	background-color: #585858 !important;
+	
+}
+
+.buttonpressed .v-button-caption,
+.buttonpressedleft .v-button-caption,
+.buttonpressedright .v-button-caption {
+	color: white;
+}
+
+.v-buttongroup {
+	margin-left: 2px;
+	margin-right: 25px;
+}
+
+.v-horizontallayout-toolbar .v-buttongroup {
+	marging-left: 5px;
+	marging-right: 20px;
+}
+
+.v-horizontallayout-toolbar .v-button-caption {
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 15px;
+	font-weight: lighter;
+}	
+
+.v-horizontallayout-toolbar .v-label {
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 15px;
+}	
+
+.v-horizontallayout-toolbar .v-horizontallayout-margin {
+	padding-top: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 5px;
+}
+
+/* REPORT DETAILS: COMMENTS PANEL */
+
+.v-panel-commentspanel .v-caption {
+	margin-bottom: 4px;
+}
+
+.v-panel-commentspanel .v-caption .v-captiontext{
+	color: grey;
+    padding-left: 5px;
+    padding-top: 5px;}
+
+.v-panel-commentspanel .v-caption .v-icon {
+	width: 22px;
+}
+
+.v-panel-commentspanel .v-label {
+	margin-left: 30px;
+}
+
+/* REPORT DETAILS: HEADER */
+
+.v-verticallayout-top .v-button .v-icon, .v-nativebutton .v-icon {
+	width: 20px;
+}
+
+.v-verticallayout-top .v-label-h2 {
+	font-family: "Arial" Arial sans-sefir;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+}
+
+.v-verticallayout-top .v-label-instruction {
+	font-family: "Arial" Arial sans-sefir;
+	font-size: 18px;
+	font-weight: lighter;
+	color: grey;
+}
+
+.v-verticallayout-reportdetails .v-verticallayout-margin {
+	padding-top:    4px;
+}
+
+.v-verticallayout-reportdetails {
+	background-color: #C8C8C8;
+}
+
+/* REPORT DETAILS: FORM:*/
+
+.v-gridlayout-reportproperties .v-caption {
+	font-size:10px;
+	color: #404040;
+}
+
+.v-gridlayout-reportproperties .v-select {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.v-gridlayout-reportproperties .v-select-select {
+	font-size:12px;
+}
+
+.v-gridlayout-reportproperties .v-button {
+	margin: 1px;
+}
+
+.v-gridlayout-reportproperties .v-button-small {
+	margin: 4px 0px;
+}
+
+/* REPORT VIEW: ATTACHMENTS :*/
+
+.v-csslayout-container .v-button, .v-csslayout-container .v-button-wrap,
+	.v-csslayout-container .v-label, .v-csslayout-container .v-button
+	.v-icon {
+	display:inline;
+	margin: 2px;
+}
+
+.v-csslayout-container .v-progressindicator {
+	display: inline-block;
+	margin: 2px, 2px, 2px, 1px;
+}
+
+.v-csslayout-container .v-button .v-icon {
+	display:inline;
+	height: 20px;
+}
+
+.v-verticallayout .v-csslayout-container .v-csslayout-ready:hover {
+	background-color: #33FF00;
+	border-radius: 5px;
+}
+
+.v-verticallayout .v-csslayout-container .v-csslayout {
+	margin: 2px;
+}
+
+.v-csslayout-container {
+	display: inline;
+}
+
+.v-verticallayout .v-csslayout {
+	background-color: white;
+	border-radius: 5px;
+}
+
+.v-verticallayout .v-csslayout-margin {
+	margin: 1px 4px;
+}
+
+.v-verticallayout .v-csslayout-container .v-csslayout {
+	vertical-align: center;
+	direction: ltr;
+	display: inline;
+}
+
+/* REPORT VIEW: HEADER:*/
+
+.v-label-reportwindowheader {
+	color: grey;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 24px;
+	font-weight: lighter;
+	height: 24px;
+	padding-top:4px;
+}
+
+.v-horizontallayout-reportwindowheader {
+	background: white;
+}
+
+.v-horizontallayout-reportwindowheader
+        .v-horizontallayout-margin {
+	padding-top:    5px;
+	padding-bottom: 5px;
+}
+
+/* REPORT VIEW: COMMENTS+ATTACHMENTS LAYOUT:*/
+
+.v-verticallayout-commentlayout {
+	background-color: #C8C8C8;
+}
+
+.v-verticallayout-commentlayout .v-verticallayout-margin {
+	padding: 10px;
+}
