@@ -11,7 +11,12 @@ import javax.persistence.OneToMany;
 
 import com.vaadin.bugrap.business.AbstractEntity;
 import com.vaadin.bugrap.business.users.entity.Reporter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @NamedQuery(name = Project.activeProjects, query = "SELECT DISTINCT p FROM ProjectVersion as pv JOIN pv.project as p WHERE pv.closed=:closed")
 public class Project extends AbstractEntity {

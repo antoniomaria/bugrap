@@ -5,7 +5,12 @@ import com.vaadin.bugrap.business.AbstractEntity;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @NamedQuery(name=Reporter.reporterByNameOrEmail,query="SELECT r FROM Reporter r WHERE r.email = :email or r.name = :name")
 public class Reporter extends AbstractEntity {
