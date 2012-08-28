@@ -26,6 +26,7 @@ public class ReportsUI extends UI {
 
 		layout = new VerticalLayout();
 		layout.setSizeFull();
+		layout.setMargin(true);
 
 		layout.addComponent(topBar);
 
