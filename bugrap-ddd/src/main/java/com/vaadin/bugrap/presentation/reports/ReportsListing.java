@@ -51,10 +51,43 @@ public class ReportsListing extends CustomComponent {
 
 		versionLayout.addComponent(versionSelector);
 
+		assignees = generateAssigneeOptionGroup();
+		status = generateStatusOptionGroup();
+
+		filterLayout.addComponent(assignees);
+
 		layout.addComponent(versionLayout);
 		layout.addComponent(filterLayout);
 
 		setCompositionRoot(layout);
+	}
+
+	private OptionGroup generateAssigneeOptionGroup() {
+		OptionGroup assignees = new OptionGroup("Assignee");
+		assignees.setNullSelectionAllowed(false);
+
+		for (ReportAssigneeOptions option : ReportAssigneeOptions.values()) {
+			assignees.addItem(option);
+			assignees.setItemCaption(option, option.getCaption());
+		}
+
+		assignees.select(ReportAssigneeOptions.ONLY_ME);
+
+		return assignees;
+	}
+
+	private OptionGroup generateStatusOptionGroup() {
+		OptionGroup status = new OptionGroup("Status");
+		status.setNullSelectionAllowed(false);
+
+		for (ReportStatusOptions option : ReportStatusOptions.values()) {
+			status.addItem(option);
+			status.setItemCaption(option, option.getCaption());
+		}
+
+		status.select(ReportStatusOptions.OPEN);
+
+		return status;
 	}
 
 	/**
