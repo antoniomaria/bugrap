@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -33,8 +34,8 @@ public class ProjectsResource {
         return String.valueOf(managed.getId());
     }
     
-    
-    @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    @GET
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public List<Project> all(){
         CriteriaQuery<Project> query = this.em.getCriteriaBuilder().createQuery(Project.class);
         return this.em.createQuery(query).getResultList();
@@ -42,6 +43,7 @@ public class ProjectsResource {
     
     @GET
     @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Project findWithId(@PathParam("id") long id){
         return this.em.find(Project.class, id);
     }

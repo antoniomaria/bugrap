@@ -50,7 +50,8 @@ public class Ping extends HttpServlet {
             pr.store(project);
             pr.store(pv);
             List<Project> activeProjects = pr.getActiveProjects();
-            out.println(activeProjects);
+            out.println("active:" + activeProjects);
+            out.println("All: " + pr.getProjects());
         } finally {            
             out.close();
         }
