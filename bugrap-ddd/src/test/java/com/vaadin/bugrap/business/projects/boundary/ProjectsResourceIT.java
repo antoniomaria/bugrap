@@ -52,6 +52,8 @@ public class ProjectsResourceIT {
         assertThat(response.getStatus(),is(200));
         String id = (String) response.getEntity(String.class);
         System.out.println("Created id: " + id);
+        Project recentlyCreated = this.target.path(id).accept(MediaType.APPLICATION_XML).get(Project.class);
+        assertNotNull(recentlyCreated);
         
     }
     
