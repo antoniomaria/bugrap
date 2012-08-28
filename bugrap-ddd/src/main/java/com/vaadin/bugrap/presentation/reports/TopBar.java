@@ -3,9 +3,11 @@ package com.vaadin.bugrap.presentation.reports;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.users.entity.Reporter;
+import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -36,10 +38,14 @@ public class TopBar extends CustomComponent {
 
 	private TextField searchArea;
 
+	@Inject
+	private javax.enterprise.event.Event<ProjectChangedEvent> projectChanged;
+
 	private final ValueChangeListener projectChangeListener = new ValueChangeListener() {
 
 		@Override
 		public void valueChange(ValueChangeEvent event) {
+			projectChanged.fire(new ProjectChangedEvent(getSelectedProject()));
 		}
 	};
 

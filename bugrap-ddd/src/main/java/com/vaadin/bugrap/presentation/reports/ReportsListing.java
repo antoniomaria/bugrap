@@ -3,8 +3,12 @@ package com.vaadin.bugrap.presentation.reports;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
+import com.vaadin.bugrap.presentation.reports.events.ProjectVersionChangedEvent;
+import com.vaadin.bugrap.presentation.reports.events.ReportAssigneeChangeEvent;
+import com.vaadin.bugrap.presentation.reports.events.ReportStatusChangeEvent;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -28,10 +32,40 @@ public class ReportsListing extends CustomComponent {
 
 	private ReportsTable reportsTable;
 
+	@Inject
+	private javax.enterprise.event.Event<ProjectVersionChangedEvent> versionChangeEvent;
+
+	@Inject
+	private javax.enterprise.event.Event<ReportStatusChangeEvent> statusChangeEvent;
+
+	@Inject
+	private javax.enterprise.event.Event<ReportAssigneeChangeEvent> assigneeChangeEvent;
+
 	private final ValueChangeListener versionChangeListener = new ValueChangeListener() {
 
 		@Override
 		public void valueChange(ValueChangeEvent event) {
+			versionChangeEvent.fire(new ProjectVersionChangedEvent(
+					getSelectedVersion()));
+		}
+	};
+
+	private final ValueChangeListener assigneeChangeListener = new ValueChangeListener() {
+
+		@Override
+		public void valueChange(ValueChangeEvent event) {
+			assigneeChangeEvent.fire(new ReportAssigneeChangeEvent(
+					getSelectedAssignee()));
+		}
+	};
+
+	private final ValueChangeListener statusChangeListener = new ValueChangeListener() {
+
+		@Override
+		public void valueChange(ValueChangeEvent event) {
+			statusChangeEvent.fire(new ReportStatusChangeEvent(
+					getSelectedStatus()));
+
 		}
 	};
 
@@ -49,11 +83,15 @@ public class ReportsListing extends CustomComponent {
 		filterLayout = new HorizontalLayout();
 
 		versionSelector = new ComboBox("Reports for");
+		versionSelector.setImmediate(true);
 
 		versionLayout.addComponent(versionSelector);
 
 		assignees = generateAssigneeOptionGroup();
+		assignees.addListener(assigneeChangeListener);
+
 		status = generateStatusOptionGroup();
+		status.addListener(statusChangeListener);
 
 		filterLayout.addComponent(assignees);
 		filterLayout.addComponent(status);
@@ -69,6 +107,18 @@ public class ReportsListing extends CustomComponent {
 		setCompositionRoot(layout);
 	}
 
+	protected ReportStatusOptions getSelectedStatus() {
+		return (ReportStatusOptions) status.getValue();
+	}
+
+	protected ReportAssigneeOptions getSelectedAssignee() {
+		return (ReportAssigneeOptions) assignees.getValue();
+	}
+
+	protected ProjectVersion getSelectedVersion() {
+		return (ProjectVersion) versionSelector.getValue();
+	}
+
 	private OptionGroup generateAssigneeOptionGroup() {
 		OptionGroup assignees = new OptionGroup("Assignee");
 		assignees.setNullSelectionAllowed(false);
@@ -79,6 +129,7 @@ public class ReportsListing extends CustomComponent {
 		}
 
 		assignees.select(ReportAssigneeOptions.ONLY_ME);
+		assignees.setImmediate(true);
 
 		return assignees;
 	}
@@ -93,6 +144,7 @@ public class ReportsListing extends CustomComponent {
 		}
 
 		status.select(ReportStatusOptions.OPEN);
+		status.setImmediate(true);
 
 		return status;
 	}

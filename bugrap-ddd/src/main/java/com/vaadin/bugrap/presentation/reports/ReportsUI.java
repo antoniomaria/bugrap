@@ -1,8 +1,10 @@
 package com.vaadin.bugrap.presentation.reports;
 
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
+import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.terminal.WrappedRequest;
 import com.vaadin.ui.UI;
@@ -38,5 +40,11 @@ public class ReportsUI extends UI {
 		setContent(layout);
 
 		topBar.populateProjects(projectRepository.getActiveProjects());
+	}
+
+	protected void onProjectChanged(
+			@Observes ProjectChangedEvent projectChangedEvent) {
+		// Call report repository with given project and filter data, populate
+		// reports table
 	}
 }
