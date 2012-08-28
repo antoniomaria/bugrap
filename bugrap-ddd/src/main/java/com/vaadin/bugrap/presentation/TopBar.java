@@ -2,6 +2,8 @@ package com.vaadin.bugrap.presentation;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -18,21 +20,21 @@ import com.vaadin.ui.VerticalLayout;
 
 public class TopBar extends CustomComponent {
 
-	private final VerticalLayout layout;
+	private VerticalLayout layout;
 
-	private final HorizontalLayout topLayout;
-	private final HorizontalLayout bottomLayout;
+	private HorizontalLayout topLayout;
+	private HorizontalLayout bottomLayout;
 
-	private final ComboBox projectSelector;
+	private ComboBox projectSelector;
 
-	private final Button userButton;
-	private final Button logoutButton;
+	private Button userButton;
+	private Button logoutButton;
 
-	private final Button reportBug;
-	private final Button requestFeature;
-	private final Button manageProject;
+	private Button reportBug;
+	private Button requestFeature;
+	private Button manageProject;
 
-	private final TextField searchArea;
+	private TextField searchArea;
 
 	private final ValueChangeListener projectChangeListener = new ValueChangeListener() {
 
@@ -76,7 +78,8 @@ public class TopBar extends CustomComponent {
 		}
 	};
 
-	public TopBar() {
+	@PostConstruct
+	public void init() {
 		layout = new VerticalLayout();
 		layout.setSpacing(true);
 
