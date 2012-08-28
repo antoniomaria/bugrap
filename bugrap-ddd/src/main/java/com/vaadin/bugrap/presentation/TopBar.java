@@ -3,6 +3,7 @@ package com.vaadin.bugrap.presentation;
 import java.util.List;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
+import com.vaadin.bugrap.business.users.entity.Reporter;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -20,10 +21,10 @@ public class TopBar extends CustomComponent {
 	private final HorizontalLayout topLayout;
 	private final HorizontalLayout bottomLayout;
 
-	private ComboBox projectSelector;
+	private final ComboBox projectSelector;
 
-	private Button userButton;
-	private Button logoutButton;
+	private final Button userButton;
+	private final Button logoutButton;
 
 	private Button reportBug;
 	private Button requestFeature;
@@ -43,7 +44,28 @@ public class TopBar extends CustomComponent {
 		layout = new VerticalLayout();
 
 		topLayout = new HorizontalLayout();
+		topLayout.setWidth(100, Unit.PERCENTAGE);
+
 		bottomLayout = new HorizontalLayout();
+		bottomLayout.setWidth(100, Unit.PERCENTAGE);
+
+		projectSelector = new ComboBox();
+		projectSelector.setWidth(100, Unit.PIXELS);
+
+		userButton = new Button();
+		logoutButton = new Button("Logout");
+
+		topLayout.addComponent(projectSelector);
+
+		topLayout.addComponent(userButton);
+		topLayout.addComponent(logoutButton);
+		topLayout.setWidth(100, Unit.PIXELS);
+		topLayout.setExpandRatio(projectSelector, 1);
+
+		layout.addComponent(topLayout);
+		layout.addComponent(bottomLayout);
+
+		setCompositionRoot(layout);
 	}
 
 	public void populateProjects(List<Project> projects) {
@@ -58,5 +80,9 @@ public class TopBar extends CustomComponent {
 				.setItemCaptionPropertyId(Project.PROJECT_NAME_CAPTION_PROPERTY);
 
 		projectSelector.addListener(projectChangeListener);
+	}
+
+	public void populateCurrentUser(Reporter user) {
+		userButton.setCaption(user.getName());
 	}
 }
