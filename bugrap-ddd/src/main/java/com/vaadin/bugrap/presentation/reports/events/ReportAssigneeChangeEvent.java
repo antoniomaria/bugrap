@@ -1,16 +1,16 @@
 package com.vaadin.bugrap.presentation.reports.events;
 
-import com.vaadin.bugrap.presentation.reports.ReportAssigneeOptions;
+import com.vaadin.bugrap.presentation.reports.ReportAssigneeOption;
 
 public class ReportAssigneeChangeEvent {
 
-	private final ReportAssigneeOptions assigneeOption;
+	private final ReportAssigneeOption assigneeOption;
 
-	public ReportAssigneeChangeEvent(ReportAssigneeOptions assigneeOption) {
+	public ReportAssigneeChangeEvent(ReportAssigneeOption assigneeOption) {
 		this.assigneeOption = assigneeOption;
 	}
 
-	public ReportAssigneeOptions getAssigneeOption() {
+	public ReportAssigneeOption getAssigneeOption() {
 		return assigneeOption;
 	}
 

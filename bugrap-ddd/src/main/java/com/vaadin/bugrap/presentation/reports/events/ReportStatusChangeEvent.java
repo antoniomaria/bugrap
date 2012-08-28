@@ -1,16 +1,16 @@
 package com.vaadin.bugrap.presentation.reports.events;
 
-import com.vaadin.bugrap.presentation.reports.ReportStatusOptions;
+import com.vaadin.bugrap.presentation.reports.ReportStatusOption;
 
 public class ReportStatusChangeEvent {
 
-	private final ReportStatusOptions selectedStatus;
+	private final ReportStatusOption selectedStatus;
 
-	public ReportStatusChangeEvent(ReportStatusOptions selectedStatus) {
+	public ReportStatusChangeEvent(ReportStatusOption selectedStatus) {
 		this.selectedStatus = selectedStatus;
 	}
 
-	public ReportStatusOptions getSelectedStatus() {
+	public ReportStatusOption getSelectedStatus() {
 		return selectedStatus;
 	}
 

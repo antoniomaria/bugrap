@@ -107,12 +107,12 @@ public class ReportsListing extends CustomComponent {
 		setCompositionRoot(layout);
 	}
 
-	protected ReportStatusOptions getSelectedStatus() {
-		return (ReportStatusOptions) status.getValue();
+	protected ReportStatusOption getSelectedStatus() {
+		return (ReportStatusOption) status.getValue();
 	}
 
-	protected ReportAssigneeOptions getSelectedAssignee() {
-		return (ReportAssigneeOptions) assignees.getValue();
+	protected ReportAssigneeOption getSelectedAssignee() {
+		return (ReportAssigneeOption) assignees.getValue();
 	}
 
 	protected ProjectVersion getSelectedVersion() {
@@ -123,12 +123,12 @@ public class ReportsListing extends CustomComponent {
 		OptionGroup assignees = new OptionGroup("Assignee");
 		assignees.setNullSelectionAllowed(false);
 
-		for (ReportAssigneeOptions option : ReportAssigneeOptions.values()) {
+		for (ReportAssigneeOption option : ReportAssigneeOption.values()) {
 			assignees.addItem(option);
 			assignees.setItemCaption(option, option.getCaption());
 		}
 
-		assignees.select(ReportAssigneeOptions.ONLY_ME);
+		assignees.select(ReportAssigneeOption.ONLY_ME);
 		assignees.setImmediate(true);
 
 		return assignees;
@@ -138,12 +138,12 @@ public class ReportsListing extends CustomComponent {
 		OptionGroup status = new OptionGroup("Status");
 		status.setNullSelectionAllowed(false);
 
-		for (ReportStatusOptions option : ReportStatusOptions.values()) {
+		for (ReportStatusOption option : ReportStatusOption.values()) {
 			status.addItem(option);
 			status.setItemCaption(option, option.getCaption());
 		}
 
-		status.select(ReportStatusOptions.OPEN);
+		status.select(ReportStatusOption.OPEN);
 		status.setImmediate(true);
 
 		return status;

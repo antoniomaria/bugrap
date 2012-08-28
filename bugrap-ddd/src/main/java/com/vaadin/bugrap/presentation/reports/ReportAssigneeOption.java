@@ -1,11 +1,11 @@
 package com.vaadin.bugrap.presentation.reports;
 
-public enum ReportStatusOptions {
-	OPEN("Open"), ALL_KINDS("All kinds"), CUSTOM("Custom");
+public enum ReportAssigneeOption {
+	ONLY_ME("Only me"), EVERYONE("Everyone");
 
 	private String caption;
 
-	private ReportStatusOptions(String caption) {
+	private ReportAssigneeOption(String caption) {
 		this.caption = caption;
 	}
 
