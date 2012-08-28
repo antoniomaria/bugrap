@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,14 +19,13 @@ import javax.persistence.Transient;
 
 import com.vaadin.bugrap.business.AbstractEntity;
 import com.vaadin.bugrap.business.users.entity.Reporter;
-import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name=Comment.commentsForReport,query="SELECT c FROM Comment c WHERE c.report=:rep")
+@NamedQuery(name = Comment.commentsForReport, query = "SELECT c FROM Comment c WHERE c.report=:rep")
 public class Comment extends AbstractEntity {
 
-        public static final String PREFIX ="com.vaadin.bugrap.business.reports.entity.Comment.";
-        public static final String commentsForReport = PREFIX + "commentsForReport";
+	public static final String PREFIX = "com.vaadin.bugrap.business.reports.entity.Comment.";
+	public static final String commentsForReport = PREFIX + "commentsForReport";
 
 	@ManyToOne
 	private Reporter author;
@@ -38,7 +38,6 @@ public class Comment extends AbstractEntity {
 	private CommentType type;
 
 	@Basic(fetch = FetchType.LAZY)
-	@Column(name = "ATTACHMENT", columnDefinition = "BYTEA")
 	@Lob
 	private byte[] attachment;
 
