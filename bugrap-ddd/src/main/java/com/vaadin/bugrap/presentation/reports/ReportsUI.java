@@ -3,7 +3,6 @@ package com.vaadin.bugrap.presentation.reports;
 import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
-import com.vaadin.bugrap.presentation.TopBar;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.terminal.WrappedRequest;
 import com.vaadin.ui.UI;

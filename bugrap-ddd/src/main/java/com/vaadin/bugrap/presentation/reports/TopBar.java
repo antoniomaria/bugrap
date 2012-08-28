@@ -1,4 +1,4 @@
-package com.vaadin.bugrap.presentation;
+package com.vaadin.bugrap.presentation.reports;
 
 import java.util.List;
 
