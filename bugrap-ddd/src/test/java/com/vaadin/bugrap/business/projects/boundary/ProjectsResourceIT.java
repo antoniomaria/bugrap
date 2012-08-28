@@ -13,12 +13,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  *
  * @author adam-bien.com
  */
-//@Ignore
+@Ignore
 public class ProjectsResourceIT {
     private static String RESOURCE_URI = "http://localhost:8080/bugrap-ddd/resources/projects";
     private Client client;
