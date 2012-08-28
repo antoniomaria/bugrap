@@ -4,20 +4,22 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.vaadin.bugrap.business.AbstractEntity;
-import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name=ProjectVersion.projectVersion,query="SELECT pv FROM ProjectVersion pv WHERE pv.project=:proj")
+@NamedQuery(name = ProjectVersion.projectVersion, query = "SELECT pv FROM ProjectVersion pv WHERE pv.project=:proj")
 public class ProjectVersion extends AbstractEntity {
 
-        private static final String PREFIX ="com.vaadin.bugrap.business.projects.entity.ProjectVersion.";
-        public static final String projectVersion = PREFIX + "projectVersion";
-        
-        private String version;
+	private static final String PREFIX = "com.vaadin.bugrap.business.projects.entity.ProjectVersion.";
+	public static final String projectVersion = PREFIX + "projectVersion";
+
+	private String version;
+
+	public static String PROJECT_VERSION_CAPTION_PROPERTY = "version";
 
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
