@@ -26,6 +26,8 @@ public class ReportsListing extends CustomComponent {
 	private HorizontalLayout versionLayout;
 	private HorizontalLayout filterLayout;
 
+	private ReportsTable reportsTable;
+
 	private final ValueChangeListener versionChangeListener = new ValueChangeListener() {
 
 		@Override
@@ -45,7 +47,6 @@ public class ReportsListing extends CustomComponent {
 		versionLayout.setWidth(100, Unit.PERCENTAGE);
 
 		filterLayout = new HorizontalLayout();
-		filterLayout.setWidth(100, Unit.PERCENTAGE);
 
 		versionSelector = new ComboBox("Reports for");
 
@@ -55,9 +56,15 @@ public class ReportsListing extends CustomComponent {
 		status = generateStatusOptionGroup();
 
 		filterLayout.addComponent(assignees);
+		filterLayout.addComponent(status);
 
 		layout.addComponent(versionLayout);
 		layout.addComponent(filterLayout);
+
+		reportsTable = new ReportsTable();
+
+		layout.addComponent(reportsTable);
+		layout.setExpandRatio(reportsTable, 1);
 
 		setCompositionRoot(layout);
 	}

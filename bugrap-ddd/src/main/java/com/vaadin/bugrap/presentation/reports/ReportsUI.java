@@ -19,6 +19,9 @@ public class ReportsUI extends UI {
 	@Inject
 	private TopBar topBar;
 
+	@Inject
+	private ReportsListing reportListing;
+
 	@Override
 	protected void init(WrappedRequest request) {
 		setSizeFull();
@@ -28,6 +31,9 @@ public class ReportsUI extends UI {
 		layout.setMargin(true);
 
 		layout.addComponent(topBar);
+		layout.addComponent(reportListing);
+
+		layout.setExpandRatio(reportListing, 1);
 
 		setContent(layout);
 
