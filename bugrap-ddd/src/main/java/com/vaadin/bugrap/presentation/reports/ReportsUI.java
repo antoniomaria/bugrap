@@ -2,6 +2,7 @@ package com.vaadin.bugrap.presentation.reports;
 
 import javax.inject.Inject;
 
+import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.presentation.TopBar;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.terminal.WrappedRequest;
@@ -12,6 +13,9 @@ import com.vaadin.ui.VerticalLayout;
 public class ReportsUI extends UI {
 
 	private VerticalLayout layout;
+
+	@Inject
+	private ProjectRepository projectRepository;
 
 	@Inject
 	private TopBar topBar;
@@ -26,6 +30,7 @@ public class ReportsUI extends UI {
 		layout.addComponent(topBar);
 
 		setContent(layout);
-	}
 
+		topBar.populateProjects(projectRepository.getActiveProjects());
+	}
 }
