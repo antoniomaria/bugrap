@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.enterprise.context.SessionScoped;
 
 import javax.persistence.EntityManager;
@@ -25,6 +27,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 @Stateful
 @SessionScoped
+@TransactionAttribute(TransactionAttributeType.NEVER)
 public class ProjectRepository {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -134,10 +137,11 @@ public class ProjectRepository {
     }
 
     /**
-     * Saves any entity to the database
+     * Saves any entity to the database and commits the transaction
      *
      * @param entity The entity to save
      */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public <A extends AbstractEntity> A store(A entity) {
         return this.em.merge(entity);
     }
@@ -417,6 +421,8 @@ public class ProjectRepository {
             e.printStackTrace();
             return Collections.EMPTY_LIST;
         }
-
     }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void save(){}
 }
