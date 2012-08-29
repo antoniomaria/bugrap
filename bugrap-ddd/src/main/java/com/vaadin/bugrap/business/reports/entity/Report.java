@@ -97,6 +97,7 @@ public class Report extends AbstractEntity {
 
 	public void setProject(Project project) {
 		this.project = project;
+                this.project.addReport(this);
 	}
 
 	public ProjectVersion getVersion() {

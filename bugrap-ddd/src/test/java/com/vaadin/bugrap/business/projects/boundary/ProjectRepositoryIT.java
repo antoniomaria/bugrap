@@ -1,6 +1,8 @@
 package com.vaadin.bugrap.business.projects.boundary;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
+import com.vaadin.bugrap.business.reports.entity.Report;
+import com.vaadin.bugrap.business.reports.entity.ReportType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -35,7 +37,19 @@ public class ProjectRepositoryIT {
     }
 
     @Test
-    public void createProject(){
+    public void createEmptyProject(){
         this.cut.store(new Project());
+    }
+    
+    @Test
+    public void createProjectWithReport(){
+        Report r = new Report();
+        r.setDescription("empty report");
+        r.setSummary("A summary");
+        r.setType(ReportType.BUG);
+        Project p = new Project();
+        p.setName("Vaadin 42");
+        p.addReport(r);
+        this.cut.store(p);
     }
 }

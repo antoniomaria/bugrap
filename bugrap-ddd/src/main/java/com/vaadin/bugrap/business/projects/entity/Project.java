@@ -10,7 +10,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import com.vaadin.bugrap.business.AbstractEntity;
+import com.vaadin.bugrap.business.reports.entity.Report;
 import com.vaadin.bugrap.business.users.entity.Reporter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,6 +36,20 @@ public class Project extends AbstractEntity {
 	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<Reporter> developers;
 
+        @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY,mappedBy="project")
+	private Set<Report> reports;
+
+        public Project() {
+            this.reports = new HashSet<Report>();
+        }
+
+        public void addReport(Report report){
+            if(!reports.contains(report)) {
+                reports.add(report);
+                report.setProject(this);
+            }
+        }
+        
 	public String getName() {
 		return name;
 	}
