@@ -13,7 +13,6 @@ import com.vaadin.bugrap.business.AbstractEntity;
 import com.vaadin.bugrap.business.reports.entity.Report;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -62,7 +61,13 @@ public class Project extends AbstractEntity {
         }
         
         public List<Report> getReportsWithSummaryOrDescription(String searchEntry){
-            return Collections.EMPTY_LIST;
+            List<Report> matchingReports = new ArrayList<Report>();
+            for (Report report: this.reports) {
+                if(report.summaryOrDescriptionLike(searchEntry)) {
+                    matchingReports.add(report);
+                }
+            }
+            return matchingReports;
         }
         
 	public String getName() {

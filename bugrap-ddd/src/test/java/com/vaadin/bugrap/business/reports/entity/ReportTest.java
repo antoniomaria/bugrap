@@ -40,4 +40,37 @@ public class ReportTest {
     public void knowsProjectVersionWithNullParameter() {
         this.cut.knowsProjectVersion(null);
     }
+    
+    @Test
+    public void summaryLike(){
+        String summary = "vaadin";
+        this.cut.setSummary(summary);
+        assertTrue(this.cut.summaryOrDescriptionLike("aA"));
+    }
+
+    @Test
+    public void summaryNotLike(){
+        String summary = "vaadin";
+        this.cut.setSummary(summary);
+        assertFalse(this.cut.summaryOrDescriptionLike("bb"));
+    }
+
+    @Test
+    public void descriptionLike(){
+        String description = "vaadin";
+        this.cut.setDescription(description);
+        assertTrue(this.cut.summaryOrDescriptionLike("aA"));
+    }
+
+    @Test
+    public void descriptionNotLike(){
+        String description = "vaadin";
+        this.cut.setDescription(description);
+        assertFalse(this.cut.summaryOrDescriptionLike("bb"));
+    }
+
+    @Test
+    public void searchEntryIsNull(){
+        assertFalse(this.cut.summaryOrDescriptionLike(null));
+    }
 }

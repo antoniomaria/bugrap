@@ -21,218 +21,231 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name=Report.unassignedReports,query="SELECT r FROM Report r WHERE r.project = :proj AND r.version IS NULL"),
-    @NamedQuery(name=Report.forVersion,query="SELECT r FROM Report r WHERE r.project = :proj AND r.version = :ver"),
-    @NamedQuery(name=Report.findUser,query="SELECT r FROM Reporter r WHERE r.name = :user AND r.password = :password"),
-    @NamedQuery(name=Report.latest,query="SELECT r FROM Report r ORDER BY r.timestamp DESC"),
-    @NamedQuery(name=Report.countWithStatus,query="SELECT COUNT(r) FROM Report r WHERE r.version=:pv AND r.status=:status")
+    @NamedQuery(name = Report.unassignedReports, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version IS NULL"),
+    @NamedQuery(name = Report.forVersion, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version = :ver"),
+    @NamedQuery(name = Report.findUser, query = "SELECT r FROM Reporter r WHERE r.name = :user AND r.password = :password"),
+    @NamedQuery(name = Report.latest, query = "SELECT r FROM Report r ORDER BY r.timestamp DESC"),
+    @NamedQuery(name = Report.countWithStatus, query = "SELECT COUNT(r) FROM Report r WHERE r.version=:pv AND r.status=:status")
 })
 public class Report extends AbstractEntity {
-        static final String PREFIX ="com.vaadin.bugrap.business.reports.entity.Report.";
-        public static final String unassignedReports = PREFIX + "unassignedReports";
-        public static final String forVersion = PREFIX + "forVersion";
-        public static final String findUser = PREFIX + "findUser";
-        public static final String latest = PREFIX + "latest";
-        public static final String countWithStatus = PREFIX + "countWithStatus";
 
-        @Column(name = "type")
-	private ReportType type;
-	@Enumerated
-	@Column(name = "status")
-	private ReportStatus status;
-	@Enumerated
-	@Column(name = "resolution")
-	private ReportResolution resolution;
+    static final String PREFIX = "com.vaadin.bugrap.business.reports.entity.Report.";
+    public static final String unassignedReports = PREFIX + "unassignedReports";
+    public static final String forVersion = PREFIX + "forVersion";
+    public static final String findUser = PREFIX + "findUser";
+    public static final String latest = PREFIX + "latest";
+    public static final String countWithStatus = PREFIX + "countWithStatus";
+    @Column(name = "type")
+    private ReportType type;
+    @Enumerated
+    @Column(name = "status")
+    private ReportStatus status;
+    @Enumerated
+    @Column(name = "resolution")
+    private ReportResolution resolution;
+    @Column(name = "summary", columnDefinition = "VARCHAR(5000)")
+    private String summary;
+    @Column(name = "description", columnDefinition = "VARCHAR(5000)")
+    private String description;
+    @ManyToOne
+    private Project project;
+    @ManyToOne
+    private ProjectVersion version;
+    @ManyToOne
+    private ProjectVersion occursIn;
+    @Enumerated
+    private ReportPriority priority;
+    @ManyToOne
+    private Reporter assigned;
+    @ManyToOne
+    private Reporter author;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
 
-	// @Column(name = "SUMMARY", columnDefinition = "LONGVARCHAR")
-	@Column(name = "summary", columnDefinition = "VARCHAR(5000)")
-	private String summary;
+    public ReportType getType() {
+        return type;
+    }
 
-	// @Column(name = "DESCRIPTION", columnDefinition = "LONGVARCHAR")
-	@Column(name = "description", columnDefinition = "VARCHAR(5000)")
-	private String description;
-	@ManyToOne
-	private Project project;
-	@ManyToOne
-	private ProjectVersion version;
-	@ManyToOne
-	private ProjectVersion occursIn;
-	@Enumerated
-	private ReportPriority priority;
-	@ManyToOne
-	private Reporter assigned;
-	@ManyToOne
-	private Reporter author;
+    public void setType(ReportType type) {
+        this.type = type;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp;
+    public String getSummary() {
+        return summary;
+    }
 
-	public ReportType getType() {
-		return type;
-	}
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
-	public void setType(ReportType type) {
-		this.type = type;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getSummary() {
-		return summary;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
+    public Project getProject() {
+        return project;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setProject(Project project) {
+        this.project = project;
+        this.project.addReport(this);
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public ProjectVersion getVersion() {
+        return version;
+    }
 
-	public Project getProject() {
-		return project;
-	}
+    public void setVersion(ProjectVersion version) {
+        this.version = version;
+    }
 
-	public void setProject(Project project) {
-		this.project = project;
-                this.project.addReport(this);
-	}
+    public ReportPriority getPriority() {
+        return priority;
+    }
 
-	public ProjectVersion getVersion() {
-		return version;
-	}
+    public void setPriority(ReportPriority priority) {
+        this.priority = priority;
+    }
 
-	public void setVersion(ProjectVersion version) {
-		this.version = version;
-	}
+    public Reporter getAssigned() {
+        return assigned;
+    }
 
-	public ReportPriority getPriority() {
-		return priority;
-	}
+    public void setAssigned(Reporter assigned) {
+        this.assigned = assigned;
+    }
 
-	public void setPriority(ReportPriority priority) {
-		this.priority = priority;
-	}
+    public ReportStatus getStatus() {
+        return status;
+    }
 
-	public Reporter getAssigned() {
-		return assigned;
-	}
+    public void setStatus(ReportStatus status) {
+        this.status = status;
+    }
 
-	public void setAssigned(Reporter assigned) {
-		this.assigned = assigned;
-	}
+    public ReportResolution getResolution() {
+        return resolution;
+    }
 
-	public ReportStatus getStatus() {
-		return status;
-	}
+    public void setResolution(ReportResolution resolution) {
+        this.resolution = resolution;
+    }
 
-	public void setStatus(ReportStatus status) {
-		this.status = status;
-	}
+    public ProjectVersion getOccursIn() {
+        return occursIn;
+    }
 
-	public ReportResolution getResolution() {
-		return resolution;
-	}
+    public void setOccursIn(ProjectVersion occursIn) {
+        this.occursIn = occursIn;
+    }
 
-	public void setResolution(ReportResolution resolution) {
-		this.resolution = resolution;
-	}
+    public Date getTimestamp() {
+        return timestamp;
+    }
 
-	public ProjectVersion getOccursIn() {
-		return occursIn;
-	}
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 
-	public void setOccursIn(ProjectVersion occursIn) {
-		this.occursIn = occursIn;
-	}
-
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
-
-        public boolean knowsProjectVersion(ProjectVersion otherVersion) {
-            if(otherVersion == null){
-                throw new IllegalArgumentException("ProjectVersion is null");
-            }
-            if(this.version == null){
-                return false;
-            }
-            return (this.version.getId() == otherVersion.getId());
+    public boolean knowsProjectVersion(ProjectVersion otherVersion) {
+        if (otherVersion == null) {
+            throw new IllegalArgumentException("ProjectVersion is null");
         }
-        
+        if (this.version == null) {
+            return false;
+        }
+        return (this.version.getId() == otherVersion.getId());
+    }
 
-	@PrePersist
-	void updateDates() {
-		if (timestamp == null) {
-			timestamp = new Date();
-		}
-	}
+    @PrePersist
+    void updateDates() {
+        if (timestamp == null) {
+            timestamp = new Date();
+        }
+    }
 
-	public Reporter getAuthor() {
-		return author;
-	}
+    public Reporter getAuthor() {
+        return author;
+    }
 
-	public void setAuthor(Reporter author) {
-		this.author = author;
-	}
+    public void setAuthor(Reporter author) {
+        this.author = author;
+    }
 
-	@Transient
-	public Object getRealStatus() {
-		if (status == ReportStatus.OPEN)
-			return status;
-		else
-			return resolution;
-	}
+    @Transient
+    public Object getRealStatus() {
+        if (status == ReportStatus.OPEN) {
+            return status;
+        } else {
+            return resolution;
+        }
+    }
 
-	@Transient
-	public void setRealStatus(Object o) {
+    @Transient
+    public void setRealStatus(Object o) {
 
-		if (o instanceof ReportStatus) {
-			status = ReportStatus.OPEN;
-			resolution = null;
-		} else {
-			status = ReportStatus.CLOSED;
-			resolution = (ReportResolution) o;
-		}
-	}
+        if (o instanceof ReportStatus) {
+            status = ReportStatus.OPEN;
+            resolution = null;
+        } else {
+            status = ReportStatus.CLOSED;
+            resolution = (ReportResolution) o;
+        }
+    }
 
-	@Transient
-	public static ReportResolution getReportResolution(Object x) {
-		if (x.equals("Needs more information"))
-			return ReportResolution.NEEDMOREINFO;
-		final String s = ((String) x).toUpperCase().replaceAll(" ", "")
-				.replaceAll("'", "");
-		return ReportResolution.valueOf(ReportResolution.class, s);
-	}
+    @Transient
+    public static ReportResolution getReportResolution(Object x) {
+        if (x.equals("Needs more information")) {
+            return ReportResolution.NEEDMOREINFO;
+        }
+        final String s = ((String) x).toUpperCase().replaceAll(" ", "")
+                .replaceAll("'", "");
+        return ReportResolution.valueOf(ReportResolution.class, s);
+    }
 
-	@Transient
-	public String getReported() {
-		long sec = (new GregorianCalendar().getTimeInMillis() - timestamp
-				.getTime()) / 1000;
-		// return minutes:
-		if (sec < 3600) // less than one hour
-			return Integer.toString((int) (sec / 60)) + " mins ago";
-		// return hours:
-		else if (sec < (60 * 60 * 24 * 2)) // less than two days
-			return Integer.toString((int) (sec / (60 * 60))) + " hours ago";
-		// return days:
-		else if (sec < (60 * 60 * 24 * 10)) // less than 10 days
-			return Integer.toString((int) (sec / (60 * 60 * 24))) + " days ago";
-		// return weeks:
-		else if (sec < (60 * 60 * 24 * 35)) // less than 35 days
-			return Integer.toString((int) (sec / (60 * 60 * 24 * 7)))
-					+ " weeks ago";
-		// return months:
-		else
-			return Integer.toString((int) (sec / (60 * 60 * 24 * 30)))
-					+ " months ago";
-	}
+    public boolean summaryOrDescriptionLike(String searchEntry) {
+        if (this.summary != null && this.stringLike(this.summary, searchEntry)) {
+            return true;
+        }
+        if (this.description != null && this.stringLike(this.description, searchEntry)) {
+            return true;
+        }
+        return false;
+    }
 
+    public boolean stringLike(String origin, String searchEntry) {
+        return origin.toLowerCase().contains(searchEntry.toLowerCase());
+    }
 
+    @Transient
+    public String getReported() {
+        long sec = (new GregorianCalendar().getTimeInMillis() - timestamp
+                .getTime()) / 1000;
+        // return minutes:
+        if (sec < 3600) // less than one hour
+        {
+            return Integer.toString((int) (sec / 60)) + " mins ago";
+        } // return hours:
+        else if (sec < (60 * 60 * 24 * 2)) // less than two days
+        {
+            return Integer.toString((int) (sec / (60 * 60))) + " hours ago";
+        } // return days:
+        else if (sec < (60 * 60 * 24 * 10)) // less than 10 days
+        {
+            return Integer.toString((int) (sec / (60 * 60 * 24))) + " days ago";
+        } // return weeks:
+        else if (sec < (60 * 60 * 24 * 35)) // less than 35 days
+        {
+            return Integer.toString((int) (sec / (60 * 60 * 24 * 7)))
+                    + " weeks ago";
+        } // return months:
+        else {
+            return Integer.toString((int) (sec / (60 * 60 * 24 * 30)))
+                    + " months ago";
+        }
+    }
 }
