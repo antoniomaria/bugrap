@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
+import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -22,136 +23,140 @@ import com.vaadin.ui.VerticalLayout;
 
 public class TopBar extends CustomComponent {
 
-	private VerticalLayout layout;
+    private VerticalLayout layout;
 
-	private HorizontalLayout topLayout;
-	private HorizontalLayout bottomLayout;
+    private HorizontalLayout topLayout;
+    private HorizontalLayout bottomLayout;
 
-	private ComboBox projectSelector;
+    private ComboBox projectSelector;
 
-	private Button userButton;
-	private Button logoutButton;
+    private Button userButton;
+    private Button logoutButton;
 
-	private Button reportBug;
-	private Button requestFeature;
-	private Button manageProject;
+    private Button reportBug;
+    private Button requestFeature;
+    private Button manageProject;
 
-	private TextField searchArea;
+    private TextField searchArea;
 
-	@Inject
-	private javax.enterprise.event.Event<ProjectChangedEvent> projectChanged;
+    @Inject
+    private javax.enterprise.event.Event<ProjectChangedEvent> projectChanged;
 
-	private final ValueChangeListener projectChangeListener = new ValueChangeListener() {
+    @Inject
+    private javax.enterprise.event.Event<ReportBugEvent> reportBugEvent;
 
-		@Override
-		public void valueChange(ValueChangeEvent event) {
-			projectChanged.fire(new ProjectChangedEvent(getSelectedProject()));
-		}
-	};
+    private final ValueChangeListener projectChangeListener = new ValueChangeListener() {
 
-	private final Button.ClickListener userListener = new Button.ClickListener() {
+        @Override
+        public void valueChange(ValueChangeEvent event) {
+            projectChanged.fire(new ProjectChangedEvent(getSelectedProject()));
+        }
+    };
 
-		@Override
-		public void buttonClick(ClickEvent event) {
-		}
-	};
+    private final Button.ClickListener userListener = new Button.ClickListener() {
 
-	private final Button.ClickListener logoutListener = new Button.ClickListener() {
+        @Override
+        public void buttonClick(ClickEvent event) {
+        }
+    };
 
-		@Override
-		public void buttonClick(ClickEvent event) {
-		}
-	};
+    private final Button.ClickListener logoutListener = new Button.ClickListener() {
 
-	private final Button.ClickListener reportBugListener = new Button.ClickListener() {
+        @Override
+        public void buttonClick(ClickEvent event) {
+        }
+    };
 
-		@Override
-		public void buttonClick(ClickEvent event) {
-		}
-	};
+    private final Button.ClickListener reportBugListener = new Button.ClickListener() {
 
-	private final Button.ClickListener featureListener = new Button.ClickListener() {
+        @Override
+        public void buttonClick(ClickEvent event) {
+            reportBugEvent.fire(new ReportBugEvent());
+        }
+    };
 
-		@Override
-		public void buttonClick(ClickEvent event) {
-		}
-	};
+    private final Button.ClickListener featureListener = new Button.ClickListener() {
 
-	private final Button.ClickListener manageProjectListener = new Button.ClickListener() {
+        @Override
+        public void buttonClick(ClickEvent event) {
+        }
+    };
 
-		@Override
-		public void buttonClick(ClickEvent event) {
-		}
-	};
+    private final Button.ClickListener manageProjectListener = new Button.ClickListener() {
 
-	@PostConstruct
-	public void init() {
-		layout = new VerticalLayout();
-		layout.setSpacing(true);
+        @Override
+        public void buttonClick(ClickEvent event) {
+        }
+    };
 
-		topLayout = new HorizontalLayout();
-		topLayout.setSpacing(true);
-		topLayout.setWidth(100, Unit.PERCENTAGE);
+    @PostConstruct
+    public void init() {
+        layout = new VerticalLayout();
+        layout.setSpacing(true);
 
-		bottomLayout = new HorizontalLayout();
-		bottomLayout.setSpacing(true);
-		bottomLayout.setWidth(100, Unit.PERCENTAGE);
+        topLayout = new HorizontalLayout();
+        topLayout.setSpacing(true);
+        topLayout.setWidth(100, Unit.PERCENTAGE);
 
-		projectSelector = new ComboBox();
-		projectSelector.setWidth(100, Unit.PERCENTAGE);
+        bottomLayout = new HorizontalLayout();
+        bottomLayout.setSpacing(true);
+        bottomLayout.setWidth(100, Unit.PERCENTAGE);
 
-		userButton = new Button("", userListener);
-		logoutButton = new Button("Logout", logoutListener);
+        projectSelector = new ComboBox();
+        projectSelector.setWidth(100, Unit.PERCENTAGE);
 
-		topLayout.addComponent(projectSelector);
+        userButton = new Button("", userListener);
+        logoutButton = new Button("Logout", logoutListener);
 
-		topLayout.addComponent(userButton);
-		topLayout.addComponent(logoutButton);
-		topLayout.setExpandRatio(projectSelector, 1);
+        topLayout.addComponent(projectSelector);
 
-		reportBug = new Button("Report a bug", reportBugListener);
-		requestFeature = new Button("Request a feature", featureListener);
-		manageProject = new Button("Manage project", manageProjectListener);
+        topLayout.addComponent(userButton);
+        topLayout.addComponent(logoutButton);
+        topLayout.setExpandRatio(projectSelector, 1);
 
-		searchArea = new TextField();
-		searchArea.setWidth(250, Unit.PIXELS);
+        reportBug = new Button("Report a bug", reportBugListener);
+        requestFeature = new Button("Request a feature", featureListener);
+        manageProject = new Button("Manage project", manageProjectListener);
 
-		HorizontalLayout buttonLayout = new HorizontalLayout();
-		buttonLayout.setSpacing(true);
+        searchArea = new TextField();
+        searchArea.setWidth(250, Unit.PIXELS);
 
-		buttonLayout.addComponent(reportBug);
-		buttonLayout.addComponent(requestFeature);
-		buttonLayout.addComponent(manageProject);
+        HorizontalLayout buttonLayout = new HorizontalLayout();
+        buttonLayout.setSpacing(true);
 
-		bottomLayout.addComponent(buttonLayout);
-		bottomLayout.addComponent(searchArea);
-		bottomLayout.setComponentAlignment(searchArea, Alignment.BOTTOM_RIGHT);
+        buttonLayout.addComponent(reportBug);
+        buttonLayout.addComponent(requestFeature);
+        buttonLayout.addComponent(manageProject);
 
-		layout.addComponent(topLayout);
-		layout.addComponent(bottomLayout);
+        bottomLayout.addComponent(buttonLayout);
+        bottomLayout.addComponent(searchArea);
+        bottomLayout.setComponentAlignment(searchArea, Alignment.BOTTOM_RIGHT);
 
-		setCompositionRoot(layout);
-	}
+        layout.addComponent(topLayout);
+        layout.addComponent(bottomLayout);
 
-	public void populateProjects(List<Project> projects) {
-		projectSelector.removeListener(projectChangeListener);
+        setCompositionRoot(layout);
+    }
 
-		BeanItemContainer<Project> projectsContainer = new BeanItemContainer<Project>(
-				Project.class);
-		projectsContainer.addAll(projects);
+    public void populateProjects(List<Project> projects) {
+        projectSelector.removeListener(projectChangeListener);
 
-		projectSelector.setContainerDataSource(projectsContainer);
-		projectSelector
-				.setItemCaptionPropertyId(Project.PROJECT_NAME_CAPTION_PROPERTY);
+        BeanItemContainer<Project> projectsContainer = new BeanItemContainer<Project>(
+                Project.class);
+        projectsContainer.addAll(projects);
 
-		projectSelector.addListener(projectChangeListener);
-	}
+        projectSelector.setContainerDataSource(projectsContainer);
+        projectSelector
+                .setItemCaptionPropertyId(Project.PROJECT_NAME_CAPTION_PROPERTY);
 
-	public void populateCurrentUser(Reporter user) {
-		userButton.setCaption(user.getName());
-	}
+        projectSelector.addListener(projectChangeListener);
+    }
 
-	public Project getSelectedProject() {
-		return (Project) projectSelector.getValue();
-	}
+    public void populateCurrentUser(Reporter user) {
+        userButton.setCaption(user.getName());
+    }
+
+    public Project getSelectedProject() {
+        return (Project) projectSelector.getValue();
+    }
 }

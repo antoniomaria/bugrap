@@ -8,18 +8,18 @@ import com.vaadin.ui.Table;
 
 public class ReportsTable extends CustomComponent {
 
-	private final Table table;
+    private final Table table;
 
-	public ReportsTable() {
-		setSizeFull();
+    public ReportsTable() {
+        setSizeFull();
 
-		table = new Table();
-		table.setSizeFull();
+        table = new Table();
+        table.setSizeFull();
 
-		setCompositionRoot(table);
-	}
+        setCompositionRoot(table);
+    }
 
-	public void populateReports(List<Report> reports) {
+    public void populateReports(List<Report> reports) {
 
-	}
+    }
 }

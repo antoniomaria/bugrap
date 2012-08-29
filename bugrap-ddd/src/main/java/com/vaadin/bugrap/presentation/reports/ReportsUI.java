@@ -5,46 +5,66 @@ import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
+import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.terminal.WrappedRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.VerticalSplitPanel;
 
 @VaadinUI(mapping = "reports")
 public class ReportsUI extends UI {
 
-	private VerticalLayout layout;
+    private VerticalLayout layout;
 
-	@Inject
-	private ProjectRepository projectRepository;
+    @Inject
+    private ProjectRepository projectRepository;
 
-	@Inject
-	private TopBar topBar;
+    @Inject
+    private TopBar topBar;
 
-	@Inject
-	private ReportsListing reportListing;
+    @Inject
+    private ReportsListing reportListing;
 
-	@Override
-	protected void init(WrappedRequest request) {
-		setSizeFull();
+    @Inject
+    private ReportEditor reportEditor;
 
-		layout = new VerticalLayout();
-		layout.setSizeFull();
-		layout.setMargin(true);
+    private VerticalSplitPanel splitPanel;
 
-		layout.addComponent(topBar);
-		layout.addComponent(reportListing);
+    @Override
+    protected void init(WrappedRequest request) {
+        setSizeFull();
 
-		layout.setExpandRatio(reportListing, 1);
+        layout = new VerticalLayout();
+        layout.setSizeFull();
+        layout.setMargin(true);
 
-		setContent(layout);
+        splitPanel = new VerticalSplitPanel();
+        splitPanel.setSizeFull();
 
-		topBar.populateProjects(projectRepository.getActiveProjects());
-	}
+        layout.addComponent(topBar);
+        layout.addComponent(splitPanel);
 
-	protected void onProjectChanged(
-			@Observes ProjectChangedEvent projectChangedEvent) {
-		// Call report repository with given project and filter data, populate
-		// reports table
-	}
+        layout.setExpandRatio(splitPanel, 1);
+
+        splitPanel.setFirstComponent(reportListing);
+        splitPanel.setSecondComponent(reportEditor);
+
+        // Show only the reports table
+        splitPanel.setSplitPosition(100);
+
+        setContent(layout);
+
+        topBar.populateProjects(projectRepository.getProjects());
+    }
+
+    protected void onReportBug(@Observes
+    ReportBugEvent reportBugEvent) {
+        // Show only the editor component
+        splitPanel.setSplitPosition(100, true);
+    }
+
+    protected void onProjectChanged(@Observes
+    ProjectChangedEvent projectChangedEvent) {
+    }
 }

@@ -20,152 +20,152 @@ import com.vaadin.ui.VerticalLayout;
 
 public class ReportsListing extends CustomComponent {
 
-	private ComboBox versionSelector;
+    private ComboBox versionSelector;
 
-	private OptionGroup assignees;
-	private OptionGroup status;
+    private OptionGroup assignees;
+    private OptionGroup status;
 
-	private VerticalLayout layout;
+    private VerticalLayout layout;
 
-	private HorizontalLayout versionLayout;
-	private HorizontalLayout filterLayout;
+    private HorizontalLayout versionLayout;
+    private HorizontalLayout filterLayout;
 
-	private ReportsTable reportsTable;
+    private ReportsTable reportsTable;
 
-	@Inject
-	private javax.enterprise.event.Event<ProjectVersionChangedEvent> versionChangeEvent;
+    @Inject
+    private javax.enterprise.event.Event<ProjectVersionChangedEvent> versionChangeEvent;
 
-	@Inject
-	private javax.enterprise.event.Event<ReportStatusChangeEvent> statusChangeEvent;
+    @Inject
+    private javax.enterprise.event.Event<ReportStatusChangeEvent> statusChangeEvent;
 
-	@Inject
-	private javax.enterprise.event.Event<ReportAssigneeChangeEvent> assigneeChangeEvent;
+    @Inject
+    private javax.enterprise.event.Event<ReportAssigneeChangeEvent> assigneeChangeEvent;
 
-	private final ValueChangeListener versionChangeListener = new ValueChangeListener() {
+    private final ValueChangeListener versionChangeListener = new ValueChangeListener() {
 
-		@Override
-		public void valueChange(ValueChangeEvent event) {
-			versionChangeEvent.fire(new ProjectVersionChangedEvent(
-					getSelectedVersion()));
-		}
-	};
+        @Override
+        public void valueChange(ValueChangeEvent event) {
+            versionChangeEvent.fire(new ProjectVersionChangedEvent(
+                    getSelectedVersion()));
+        }
+    };
 
-	private final ValueChangeListener assigneeChangeListener = new ValueChangeListener() {
+    private final ValueChangeListener assigneeChangeListener = new ValueChangeListener() {
 
-		@Override
-		public void valueChange(ValueChangeEvent event) {
-			assigneeChangeEvent.fire(new ReportAssigneeChangeEvent(
-					getSelectedAssignee()));
-		}
-	};
+        @Override
+        public void valueChange(ValueChangeEvent event) {
+            assigneeChangeEvent.fire(new ReportAssigneeChangeEvent(
+                    getSelectedAssignee()));
+        }
+    };
 
-	private final ValueChangeListener statusChangeListener = new ValueChangeListener() {
+    private final ValueChangeListener statusChangeListener = new ValueChangeListener() {
 
-		@Override
-		public void valueChange(ValueChangeEvent event) {
-			statusChangeEvent.fire(new ReportStatusChangeEvent(
-					getSelectedStatus()));
+        @Override
+        public void valueChange(ValueChangeEvent event) {
+            statusChangeEvent.fire(new ReportStatusChangeEvent(
+                    getSelectedStatus()));
 
-		}
-	};
+        }
+    };
 
-	@PostConstruct
-	public void init() {
-		setSizeFull();
+    @PostConstruct
+    public void init() {
+        setSizeFull();
 
-		layout = new VerticalLayout();
-		layout.setSizeFull();
-		layout.setSpacing(true);
+        layout = new VerticalLayout();
+        layout.setSizeFull();
+        layout.setSpacing(true);
 
-		versionLayout = new HorizontalLayout();
-		versionLayout.setWidth(100, Unit.PERCENTAGE);
+        versionLayout = new HorizontalLayout();
+        versionLayout.setWidth(100, Unit.PERCENTAGE);
 
-		filterLayout = new HorizontalLayout();
+        filterLayout = new HorizontalLayout();
 
-		versionSelector = new ComboBox("Reports for");
-		versionSelector.setImmediate(true);
+        versionSelector = new ComboBox("Reports for");
+        versionSelector.setImmediate(true);
 
-		versionLayout.addComponent(versionSelector);
+        versionLayout.addComponent(versionSelector);
 
-		assignees = generateAssigneeOptionGroup();
-		assignees.addListener(assigneeChangeListener);
+        assignees = generateAssigneeOptionGroup();
+        assignees.addListener(assigneeChangeListener);
 
-		status = generateStatusOptionGroup();
-		status.addListener(statusChangeListener);
+        status = generateStatusOptionGroup();
+        status.addListener(statusChangeListener);
 
-		filterLayout.addComponent(assignees);
-		filterLayout.addComponent(status);
+        filterLayout.addComponent(assignees);
+        filterLayout.addComponent(status);
 
-		layout.addComponent(versionLayout);
-		layout.addComponent(filterLayout);
+        layout.addComponent(versionLayout);
+        layout.addComponent(filterLayout);
 
-		reportsTable = new ReportsTable();
+        reportsTable = new ReportsTable();
 
-		layout.addComponent(reportsTable);
-		layout.setExpandRatio(reportsTable, 1);
+        layout.addComponent(reportsTable);
+        layout.setExpandRatio(reportsTable, 1);
 
-		setCompositionRoot(layout);
-	}
+        setCompositionRoot(layout);
+    }
 
-	protected ReportStatusOption getSelectedStatus() {
-		return (ReportStatusOption) status.getValue();
-	}
+    protected ReportStatusOption getSelectedStatus() {
+        return (ReportStatusOption) status.getValue();
+    }
 
-	protected ReportAssigneeOption getSelectedAssignee() {
-		return (ReportAssigneeOption) assignees.getValue();
-	}
+    protected ReportAssigneeOption getSelectedAssignee() {
+        return (ReportAssigneeOption) assignees.getValue();
+    }
 
-	protected ProjectVersion getSelectedVersion() {
-		return (ProjectVersion) versionSelector.getValue();
-	}
+    protected ProjectVersion getSelectedVersion() {
+        return (ProjectVersion) versionSelector.getValue();
+    }
 
-	private OptionGroup generateAssigneeOptionGroup() {
-		OptionGroup assignees = new OptionGroup("Assignee");
-		assignees.setNullSelectionAllowed(false);
+    private OptionGroup generateAssigneeOptionGroup() {
+        OptionGroup assignees = new OptionGroup("Assignee");
+        assignees.setNullSelectionAllowed(false);
 
-		for (ReportAssigneeOption option : ReportAssigneeOption.values()) {
-			assignees.addItem(option);
-			assignees.setItemCaption(option, option.getCaption());
-		}
+        for (ReportAssigneeOption option : ReportAssigneeOption.values()) {
+            assignees.addItem(option);
+            assignees.setItemCaption(option, option.getCaption());
+        }
 
-		assignees.select(ReportAssigneeOption.ONLY_ME);
-		assignees.setImmediate(true);
+        assignees.select(ReportAssigneeOption.ONLY_ME);
+        assignees.setImmediate(true);
 
-		return assignees;
-	}
+        return assignees;
+    }
 
-	private OptionGroup generateStatusOptionGroup() {
-		OptionGroup status = new OptionGroup("Status");
-		status.setNullSelectionAllowed(false);
+    private OptionGroup generateStatusOptionGroup() {
+        OptionGroup status = new OptionGroup("Status");
+        status.setNullSelectionAllowed(false);
 
-		for (ReportStatusOption option : ReportStatusOption.values()) {
-			status.addItem(option);
-			status.setItemCaption(option, option.getCaption());
-		}
+        for (ReportStatusOption option : ReportStatusOption.values()) {
+            status.addItem(option);
+            status.setItemCaption(option, option.getCaption());
+        }
 
-		status.select(ReportStatusOption.OPEN);
-		status.setImmediate(true);
+        status.select(ReportStatusOption.OPEN);
+        status.setImmediate(true);
 
-		return status;
-	}
+        return status;
+    }
 
-	/**
-	 * Populates available versions for currently selected project
-	 * 
-	 * @param projectVersions
-	 */
-	public void populateProjectVersions(List<ProjectVersion> projectVersions) {
-		versionSelector.removeListener(versionChangeListener);
+    /**
+     * Populates available versions for currently selected project
+     * 
+     * @param projectVersions
+     */
+    public void populateProjectVersions(List<ProjectVersion> projectVersions) {
+        versionSelector.removeListener(versionChangeListener);
 
-		BeanItemContainer<ProjectVersion> versionContainer = new BeanItemContainer<ProjectVersion>(
-				ProjectVersion.class);
-		versionContainer.addAll(projectVersions);
+        BeanItemContainer<ProjectVersion> versionContainer = new BeanItemContainer<ProjectVersion>(
+                ProjectVersion.class);
+        versionContainer.addAll(projectVersions);
 
-		versionSelector.setContainerDataSource(versionContainer);
-		versionSelector
-				.setItemCaptionPropertyId(ProjectVersion.PROJECT_VERSION_CAPTION_PROPERTY);
+        versionSelector.setContainerDataSource(versionContainer);
+        versionSelector
+                .setItemCaptionPropertyId(ProjectVersion.PROJECT_VERSION_CAPTION_PROPERTY);
 
-		versionSelector.addListener(versionChangeListener);
-	}
+        versionSelector.addListener(versionChangeListener);
+    }
 
 }

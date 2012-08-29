@@ -4,14 +4,14 @@ import com.vaadin.bugrap.presentation.reports.ReportAssigneeOption;
 
 public class ReportAssigneeChangeEvent {
 
-	private final ReportAssigneeOption assigneeOption;
+    private final ReportAssigneeOption assigneeOption;
 
-	public ReportAssigneeChangeEvent(ReportAssigneeOption assigneeOption) {
-		this.assigneeOption = assigneeOption;
-	}
+    public ReportAssigneeChangeEvent(ReportAssigneeOption assigneeOption) {
+        this.assigneeOption = assigneeOption;
+    }
 
-	public ReportAssigneeOption getAssigneeOption() {
-		return assigneeOption;
-	}
+    public ReportAssigneeOption getAssigneeOption() {
+        return assigneeOption;
+    }
 
 }

@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,17 +18,14 @@ import com.vaadin.bugrap.business.AbstractEntity;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
 import com.vaadin.bugrap.business.users.entity.Reporter;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Report.unassignedReports, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version IS NULL"),
-    @NamedQuery(name = Report.forVersion, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version = :ver"),
-    @NamedQuery(name = Report.findUser, query = "SELECT r FROM Reporter r WHERE r.name = :user AND r.password = :password"),
-    @NamedQuery(name = Report.latest, query = "SELECT r FROM Report r ORDER BY r.timestamp DESC"),
-    @NamedQuery(name = Report.countWithStatus, query = "SELECT COUNT(r) FROM Report r WHERE r.version=:pv AND r.status=:status")
-})
+        @NamedQuery(name = Report.unassignedReports, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version IS NULL"),
+        @NamedQuery(name = Report.forVersion, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version = :ver"),
+        @NamedQuery(name = Report.findUser, query = "SELECT r FROM Reporter r WHERE r.name = :user AND r.password = :password"),
+        @NamedQuery(name = Report.latest, query = "SELECT r FROM Report r ORDER BY r.timestamp DESC"),
+        @NamedQuery(name = Report.countWithStatus, query = "SELECT COUNT(r) FROM Report r WHERE r.version=:pv AND r.status=:status") })
 public class Report extends AbstractEntity {
 
     static final String PREFIX = "com.vaadin.bugrap.business.reports.entity.Report.";
@@ -211,7 +210,8 @@ public class Report extends AbstractEntity {
         if (this.summary != null && this.stringLike(this.summary, searchEntry)) {
             return true;
         }
-        if (this.description != null && this.stringLike(this.description, searchEntry)) {
+        if (this.description != null
+                && this.stringLike(this.description, searchEntry)) {
             return true;
         }
         return false;

@@ -1,16 +1,16 @@
 package com.vaadin.bugrap.business.reports.entity;
 
 public enum ReportStatus {
-	OPEN("Open"), CLOSED("Closed");
+    OPEN("Open"), CLOSED("Closed");
 
-	private String name;
+    private String name;
 
-	ReportStatus(String name) {
-		this.name = name;
-	}
+    ReportStatus(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        return name;
+    }
 }

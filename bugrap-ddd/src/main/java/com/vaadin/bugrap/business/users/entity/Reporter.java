@@ -1,68 +1,67 @@
 package com.vaadin.bugrap.business.users.entity;
 
-
-import com.vaadin.bugrap.business.AbstractEntity;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.vaadin.bugrap.business.AbstractEntity;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@NamedQuery(name=Reporter.reporterByNameOrEmail,query="SELECT r FROM Reporter r WHERE r.email = :email or r.name = :name")
+@NamedQuery(name = Reporter.reporterByNameOrEmail, query = "SELECT r FROM Reporter r WHERE r.email = :email or r.name = :name")
 public class Reporter extends AbstractEntity {
-        private static final String PREFIX ="com.vaadin.bugrap.business.users.entity.Reporter.";
-        public static final String reporterByNameOrEmail ="reporterByNameOrEmail";
+    private static final String PREFIX = "com.vaadin.bugrap.business.users.entity.Reporter.";
+    public static final String reporterByNameOrEmail = "reporterByNameOrEmail";
 
-	private String name;
+    private String name;
 
-	private String email;
+    private String email;
 
-	private String password;
+    private String password;
 
-	private boolean admin = false;
+    private boolean admin = false;
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public boolean isAdmin() {
-		return admin;
-	}
+    public boolean isAdmin() {
+        return admin;
+    }
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        return name;
+    }
 
-	public boolean equals(Reporter reporter) {
-		return getId() == reporter.getId();
-	}
+    public boolean equals(Reporter reporter) {
+        return getId() == reporter.getId();
+    }
 }

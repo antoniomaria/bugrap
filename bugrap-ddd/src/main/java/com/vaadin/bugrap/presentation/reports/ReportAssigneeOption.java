@@ -1,15 +1,15 @@
 package com.vaadin.bugrap.presentation.reports;
 
 public enum ReportAssigneeOption {
-	ONLY_ME("Only me"), EVERYONE("Everyone");
+    ONLY_ME("Only me"), EVERYONE("Everyone");
 
-	private String caption;
+    private String caption;
 
-	private ReportAssigneeOption(String caption) {
-		this.caption = caption;
-	}
+    private ReportAssigneeOption(String caption) {
+        this.caption = caption;
+    }
 
-	public String getCaption() {
-		return caption;
-	}
+    public String getCaption() {
+        return caption;
+    }
 }

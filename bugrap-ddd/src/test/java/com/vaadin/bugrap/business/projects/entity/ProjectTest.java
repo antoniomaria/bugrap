@@ -1,14 +1,18 @@
 package com.vaadin.bugrap.business.projects.entity;
 
-import com.vaadin.bugrap.business.reports.entity.Report;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
 import org.junit.Before;
-import static org.hamcrest.CoreMatchers.*;
+import org.junit.Test;
+
+import com.vaadin.bugrap.business.reports.entity.Report;
 
 /**
- *
+ * 
  * @author adam-bien.com
  */
 public class ProjectTest {
@@ -30,8 +34,9 @@ public class ProjectTest {
         this.cut.addReport(expectedReport);
         ProjectVersion searchCriteria = new ProjectVersion();
         searchCriteria.setId(expectedId);
-        List<Report> reportsForVersion = this.cut.getReportsForVersion(searchCriteria);
-        assertThat(reportsForVersion.size(),is(1));
+        List<Report> reportsForVersion = this.cut
+                .getReportsForVersion(searchCriteria);
+        assertThat(reportsForVersion.size(), is(1));
         assertTrue(reportsForVersion.contains(expectedReport));
     }
 
