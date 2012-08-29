@@ -156,6 +156,17 @@ public class Report extends AbstractEntity {
 		this.timestamp = timestamp;
 	}
 
+        public boolean knowsProjectVersion(ProjectVersion otherVersion) {
+            if(otherVersion == null){
+                throw new IllegalArgumentException("ProjectVersion is null");
+            }
+            if(this.version == null){
+                return false;
+            }
+            return (this.version.getId() == otherVersion.getId());
+        }
+        
+
 	@PrePersist
 	void updateDates() {
 		if (timestamp == null) {
@@ -222,5 +233,6 @@ public class Report extends AbstractEntity {
 			return Integer.toString((int) (sec / (60 * 60 * 24 * 30)))
 					+ " months ago";
 	}
+
 
 }
