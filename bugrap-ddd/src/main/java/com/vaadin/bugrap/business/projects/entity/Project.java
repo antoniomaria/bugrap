@@ -36,7 +36,7 @@ public class Project extends AbstractEntity {
 	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<Reporter> developers;
 
-        @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY,mappedBy="project")
+        @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY,mappedBy="project")
 	private Set<Report> reports;
 
         public Project() {
