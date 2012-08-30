@@ -47,8 +47,7 @@ public class ProjectsResource {
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Project findWithId(@PathParam("id")
-    long id) {
+    public Project findWithId(@PathParam("id") long id) {
         return this.em.find(Project.class, id);
     }
 

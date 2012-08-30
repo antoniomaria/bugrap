@@ -58,13 +58,12 @@ public class ReportsUI extends UI {
         topBar.populateProjects(projectRepository.getProjects());
     }
 
-    protected void onReportBug(@Observes
-    ReportBugEvent reportBugEvent) {
+    protected void onReportBug(@Observes ReportBugEvent reportBugEvent) {
         // Show only the editor component
         splitPanel.setSplitPosition(100, true);
     }
 
-    protected void onProjectChanged(@Observes
-    ProjectChangedEvent projectChangedEvent) {
+    protected void onProjectChanged(
+            @Observes ProjectChangedEvent projectChangedEvent) {
     }
 }
