@@ -9,6 +9,7 @@ import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
 import com.vaadin.bugrap.presentation.reports.events.ProjectVersionChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportAssigneeChangeEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportStatusChangeEvent;
+import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -18,6 +19,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
 
+@VaadinUIScoped
 public class ReportsListing extends CustomComponent {
 
     private ComboBox versionSelector;

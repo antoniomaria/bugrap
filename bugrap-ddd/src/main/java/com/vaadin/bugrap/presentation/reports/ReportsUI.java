@@ -6,13 +6,15 @@ import javax.inject.Inject;
 import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
+import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
 import com.vaadin.cdi.VaadinUI;
-import com.vaadin.terminal.WrappedRequest;
+import com.vaadin.server.WrappedRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
 @VaadinUI(mapping = "reports")
+@VaadinUIScoped
 public class ReportsUI extends UI {
 
     private VerticalLayout layout;
