@@ -18,14 +18,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.vaadin.bugrap.business.projects.entity.Project;
+import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 
 /**
  * 
  * @author adam-bien.com
  */
-public class ProjectsResourceIT {
-    private static String RESOURCE_URI = "http://localhost:8080/bugrap-ddd/resources/projects";
+public class ProjectsVersionsIT {
+    private static String RESOURCE_URI = "http://localhost:8080/bugrap-ddd/resources/versions";
     private Client client;
     private WebResource target;
 
@@ -45,6 +46,11 @@ public class ProjectsResourceIT {
         Project project = new Project();
         project.setName("vaadin " + new Date());
         project.setManager(reporter);
+        ProjectVersion pv = new ProjectVersion();
+        pv.setClosed(false);
+        pv.setProject(project);
+        pv.setReleaseDate(new Date());
+        pv.setVersion("42");
 
         List<Reporter> developers = new ArrayList<Reporter>() {
             {
@@ -55,14 +61,15 @@ public class ProjectsResourceIT {
         };
         project.setDevelopers(developers);
         ClientResponse response = this.target.accept(MediaType.TEXT_PLAIN)
-                .entity(project, MediaType.APPLICATION_XML)
+                .entity(pv, MediaType.APPLICATION_XML)
                 .post(ClientResponse.class);
         assertThat(response.getStatus(), is(200));
         String id = response.getEntity(String.class);
         System.out.println("Created id: " + id);
-        Project recentlyCreated = this.target.path(id)
-                .accept(MediaType.APPLICATION_XML).get(Project.class);
+        ProjectVersion recentlyCreated = this.target.path(id)
+                .accept(MediaType.APPLICATION_XML).get(ProjectVersion.class);
         assertNotNull(recentlyCreated);
+        assertNotNull(recentlyCreated.getProject());
 
     }
 

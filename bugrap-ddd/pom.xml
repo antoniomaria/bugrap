@@ -109,7 +109,7 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>burgrap-dd</finalName>
+        <finalName>bugrap-dd</finalName>
     </build>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

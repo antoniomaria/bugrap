@@ -9,9 +9,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.vaadin.bugrap.business.AbstractEntity;
+import javax.persistence.CascadeType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @NamedQuery(name = ProjectVersion.projectVersion, query = "SELECT pv FROM ProjectVersion pv WHERE pv.project=:proj")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ProjectVersion extends AbstractEntity {
 
     private static final String PREFIX = "com.vaadin.bugrap.business.projects.entity.ProjectVersion.";
@@ -25,7 +31,7 @@ public class ProjectVersion extends AbstractEntity {
     private Date releaseDate;
     private boolean closed;
 
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST})
     private Project project;
 
     public String getVersion() {
