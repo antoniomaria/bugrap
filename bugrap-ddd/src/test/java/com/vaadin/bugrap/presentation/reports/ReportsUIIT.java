@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
  */
 @VaadinContext.VaadinUIScoped
 @RunWith(Arquillian.class)
-public class ReportsUITest {
+public class ReportsUIIT {
     
     @Inject
     ReportsUI cut;
@@ -44,7 +44,7 @@ public class ReportsUITest {
     @Deployment
     public static JavaArchive createTestArchive() {
         return ShrinkWrap.create(JavaArchive.class, "reports.jar").
-                addClasses(ReportsUITest.class,MockProjectRepository.class,ReportsUI.class,
+                addClasses(ReportsUIIT.class,MockProjectRepository.class,ReportsUI.class,
                 TopBar.class,ReportsListing.class,ReportEditor.class).
                 addAsManifestResource(
                 new ByteArrayAsset("<beans/>".getBytes()),
