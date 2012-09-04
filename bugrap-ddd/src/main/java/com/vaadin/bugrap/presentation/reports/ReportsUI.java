@@ -18,20 +18,15 @@ import com.vaadin.ui.VerticalSplitPanel;
 public class ReportsUI extends UI {
 
     private VerticalLayout layout;
-
     @Inject
-    private ProjectRepository projectRepository;
-
+    ProjectRepository projectRepository;
     @Inject
-    private TopBar topBar;
-
+    TopBar topBar;
     @Inject
-    private ReportsListing reportListing;
-
+    ReportsListing reportListing;
     @Inject
-    private ReportEditor reportEditor;
-
-    private VerticalSplitPanel splitPanel;
+    ReportEditor reportEditor;
+    VerticalSplitPanel splitPanel;
 
     @Override
     protected void init(WrappedRequest request) {
@@ -65,7 +60,6 @@ public class ReportsUI extends UI {
         splitPanel.setSplitPosition(100, true);
     }
 
-    protected void onProjectChanged(
-            @Observes ProjectChangedEvent projectChangedEvent) {
+    protected void onProjectChanged(@Observes ProjectChangedEvent projectChangedEvent) {
     }
 }
