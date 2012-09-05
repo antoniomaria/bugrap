@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Table;
@@ -20,6 +21,8 @@ public class ProjectTable extends CustomComponent {
         setSizeFull();
 
         table = new Table();
+        table.setImmediate(true);
+        table.setSelectable(true);
         table.setSizeFull();
 
         setCompositionRoot(table);
@@ -32,5 +35,17 @@ public class ProjectTable extends CustomComponent {
 
         table.setContainerDataSource(projectContainer);
         table.setVisibleColumns(new String[] { "name" });
+    }
+
+    public Project getSelectedProject() {
+        return (Project) table.getValue();
+    }
+
+    public boolean isProjectSelected() {
+        return table.getValue() != null;
+    }
+
+    public void addValueChangeListener(ValueChangeListener valueChangeListener) {
+        table.addValueChangeListener(valueChangeListener);
     }
 }
