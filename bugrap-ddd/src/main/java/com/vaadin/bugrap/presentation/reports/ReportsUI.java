@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
+import com.vaadin.bugrap.presentation.reports.events.ReportSavedEvent;
 import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.server.WrappedRequest;
@@ -62,7 +63,12 @@ public class ReportsUI extends UI {
 
     protected void onReportBug(@Observes ReportBugEvent reportBugEvent) {
         // Show only the editor component
-        splitPanel.setSplitPosition(100, true);
+        splitPanel.setSplitPosition(50);
+        reportEditor.initializeForNewReport();
+    }
+
+    protected void onReportSaved(@Observes ReportSavedEvent reportSavedEvent) {
+
     }
 
     protected void onProjectChanged(

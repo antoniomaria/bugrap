@@ -7,18 +7,21 @@ import com.vaadin.bugrap.business.reports.entity.Report;
 import com.vaadin.bugrap.business.reports.entity.ReportPriority;
 import com.vaadin.bugrap.business.reports.entity.ReportStatus;
 import com.vaadin.bugrap.business.reports.entity.ReportType;
+import com.vaadin.bugrap.presentation.reports.events.OpenReportWindowEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportCreationCancelledEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportSavedEvent;
 import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @VaadinUIScoped
@@ -34,12 +37,23 @@ public class ReportEditor extends CustomComponent {
     private Panel content;
 
     @Inject
+    private javax.enterprise.event.Event<OpenReportWindowEvent> openReportWindowEvent;
+
+    @Inject
     private javax.enterprise.event.Event<ReportSavedEvent> reportSavedEvent;
 
     @Inject
     private javax.enterprise.event.Event<ReportCreationCancelledEvent> reportCancelled;
 
     private Report report;
+
+    private final Button.ClickListener openReportInNewWindowListener = new Button.ClickListener() {
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            openReportWindowEvent.fire(new OpenReportWindowEvent(report));
+        }
+    };
 
     private final Button.ClickListener saveListener = new Button.ClickListener() {
 
@@ -107,6 +121,9 @@ public class ReportEditor extends CustomComponent {
 
         selectors.addComponent(create);
         selectors.addComponent(cancel);
+
+        selectors.setComponentAlignment(create, Alignment.BOTTOM_RIGHT);
+        selectors.setComponentAlignment(cancel, Alignment.BOTTOM_RIGHT);
     }
 
     public void initializeForExistingReport(Report report) {
@@ -117,37 +134,58 @@ public class ReportEditor extends CustomComponent {
 
         selectors.addComponent(update);
         selectors.addComponent(revert);
+
+        selectors.setComponentAlignment(update, Alignment.BOTTOM_RIGHT);
+        selectors.setComponentAlignment(revert, Alignment.BOTTOM_RIGHT);
     }
 
     private void initializeForReport(Report report) {
         this.report = report;
 
+        Button openInNewWindow = new Button("Open in new window",
+                openReportInNewWindowListener);
+
+        topArea.removeAllComponents();
         selectors.removeAllComponents();
 
         editorFields.setItemDataSource(new BeanItem<Report>(report));
 
+        TextField summary = editorFields.buildAndBind("", "summary",
+                TextField.class);
         ComboBox priority = editorFields.buildAndBind("Priority", "priority",
                 ComboBox.class);
         ComboBox type = editorFields.buildAndBind("Type", "type",
                 ComboBox.class);
         ComboBox status = editorFields.buildAndBind("Status", "status",
                 ComboBox.class);
-        ComboBox assignedTo = editorFields.buildAndBind("Assigned to",
-                "assigned", ComboBox.class);
-        ComboBox version = editorFields.buildAndBind("Version", "version",
-                ComboBox.class);
+        /*- ComboBox assignedTo = editorFields.buildAndBind("Assigned to",
+                 "assigned", ComboBox.class);
+         ComboBox version = editorFields.buildAndBind("Version", "version",
+                 ComboBox.class);*/
 
+        configureSummary(summary);
         configurePrioritySelector(priority);
         configureTypeSelector(type);
         configureStatusSelector(type);
-        configureAssignedToSelector(assignedTo);
-        configureVersionSelector(version);
+        // configureAssignedToSelector(assignedTo);
+        // configureVersionSelector(version);
 
+        topArea.addComponent(openInNewWindow);
+        topArea.addComponent(summary);
         selectors.addComponent(priority);
         selectors.addComponent(type);
         selectors.addComponent(status);
-        selectors.addComponent(assignedTo);
-        selectors.addComponent(version);
+        // selectors.addComponent(assignedTo);
+        // selectors.addComponent(version);
+
+        topArea.setComponentAlignment(openInNewWindow, Alignment.BOTTOM_LEFT);
+    }
+
+    private void configureSummary(TextField summary) {
+        summary.setInputPrompt("Report summary...");
+        summary.setMaxLength(256);
+        summary.setWidth(100, Unit.PERCENTAGE);
+        summary.setNullRepresentation("");
     }
 
     private void configurePrioritySelector(ComboBox priority) {
