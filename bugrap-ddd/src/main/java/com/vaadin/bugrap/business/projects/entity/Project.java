@@ -66,8 +66,8 @@ public class Project extends AbstractEntity {
         return Collections.unmodifiableList(projectVersions);
     }
 
-    public List<Report> getReportsForVersion(ProjectVersion version) {
-        List<Report> matchingReports = new ArrayList<Report>();
+    public Set<Report> getReportsForVersion(ProjectVersion version) {
+        Set<Report> matchingReports = new HashSet<Report>();
         for (Report report : this.reports) {
             if (report.knowsProjectVersion(version)) {
                 matchingReports.add(report);
