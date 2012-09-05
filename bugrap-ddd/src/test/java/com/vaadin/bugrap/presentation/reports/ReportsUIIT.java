@@ -1,7 +1,10 @@
 package com.vaadin.bugrap.presentation.reports;
 
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
+import com.vaadin.cdi.BeanStoreContainer;
+import com.vaadin.cdi.CDIUIProvider;
 import com.vaadin.cdi.VaadinContext;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.WrappedRequest;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -21,7 +24,6 @@ import static org.mockito.Mockito.*;
  *
  * @author adam-bien.com
  */
-@VaadinContext.VaadinUIScoped
 @RunWith(Arquillian.class)
 public class ReportsUIIT {
     
@@ -37,15 +39,16 @@ public class ReportsUIIT {
     @Inject
     ReportEditor reportEditor;
     
-    @Inject 
+    @Inject
     private Event<ReportBugEvent> reportBugEvent;
 
 
     @Deployment
     public static JavaArchive createTestArchive() {
         return ShrinkWrap.create(JavaArchive.class, "reports.jar").
-                addClasses(ReportsUIIT.class,MockProjectRepository.class,ReportsUI.class,
+                addClasses(MockProjectRepository.class,ReportsUI.class,
                 TopBar.class,ReportsListing.class,ReportEditor.class).
+                addPackage("com.vaadin.cdi").
                 addAsManifestResource(
                 new ByteArrayAsset("<beans/>".getBytes()),
                 ArchivePaths.create("beans.xml"));
@@ -62,5 +65,4 @@ public class ReportsUIIT {
         ReportBugEvent rbe = new ReportBugEvent();
         reportBugEvent.fire(rbe);
     }
-
 }

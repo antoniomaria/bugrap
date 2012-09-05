@@ -12,10 +12,11 @@ import com.vaadin.server.WrappedRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
+import java.io.Serializable;
 
 @VaadinUI(mapping = "reports")
 @VaadinUIScoped
-public class ReportsUI extends UI {
+public class ReportsUI extends UI{
 
     private VerticalLayout layout;
     @Inject
