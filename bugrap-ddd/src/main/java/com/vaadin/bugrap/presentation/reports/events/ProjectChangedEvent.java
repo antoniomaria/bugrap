@@ -13,4 +13,8 @@ public class ProjectChangedEvent {
     public Project getSelectedProject() {
         return project;
     }
+
+    public boolean isProjectSelected() {
+        return project != null;
+    }
 }
