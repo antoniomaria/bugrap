@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
-import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
+import com.vaadin.cdi.VaadinUIScoped;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.CustomComponent;
