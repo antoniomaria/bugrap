@@ -4,6 +4,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
+import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportSavedEvent;
@@ -73,5 +74,12 @@ public class ReportsUI extends UI {
 
     protected void onProjectChanged(
             @Observes ProjectChangedEvent projectChangedEvent) {
+        if (projectChangedEvent.isProjectSelected()) {
+
+            Project project = projectChangedEvent.getSelectedProject();
+            reportListing.populateProjectVersions(project.getProjectVersions());
+
+        }
+
     }
 }

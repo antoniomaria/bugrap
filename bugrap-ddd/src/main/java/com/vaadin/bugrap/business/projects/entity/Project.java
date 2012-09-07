@@ -76,6 +76,10 @@ public class Project extends AbstractEntity {
         return matchingReports;
     }
 
+    public Set<Report> getAllReports() {
+        return Collections.unmodifiableSet(reports);
+    }
+
     public List<Report> getReportsWithSummaryOrDescription(String searchEntry) {
         List<Report> matchingReports = new ArrayList<Report>();
         for (Report report : this.reports) {
