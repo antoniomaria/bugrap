@@ -7,9 +7,8 @@ import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
-import com.vaadin.bugrap.presentation.reports.events.ReportSavedEvent;
-import com.vaadin.cdi.VaadinContext.VaadinUIScoped;
 import com.vaadin.cdi.VaadinUI;
+import com.vaadin.cdi.VaadinUIScoped;
 import com.vaadin.server.WrappedRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -20,20 +19,15 @@ import com.vaadin.ui.VerticalSplitPanel;
 public class ReportsUI extends UI {
 
     private VerticalLayout layout;
-
     @Inject
-    private ProjectRepository projectRepository;
-
+    ProjectRepository projectRepository;
     @Inject
-    private TopBar topBar;
-
+    TopBar topBar;
     @Inject
-    private ReportsListing reportListing;
-
+    ReportsListing reportListing;
     @Inject
-    private ReportEditor reportEditor;
-
-    private VerticalSplitPanel splitPanel;
+    ReportEditor reportEditor;
+    VerticalSplitPanel splitPanel;
 
     @Override
     protected void init(WrappedRequest request) {
@@ -66,10 +60,6 @@ public class ReportsUI extends UI {
         // Show only the editor component
         splitPanel.setSplitPosition(50);
         reportEditor.initializeForNewReport();
-    }
-
-    protected void onReportSaved(@Observes ReportSavedEvent reportSavedEvent) {
-
     }
 
     protected void onProjectChanged(
