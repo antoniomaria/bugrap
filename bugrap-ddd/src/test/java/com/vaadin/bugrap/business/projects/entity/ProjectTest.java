@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vaadin.bugrap.business.reports.entity.Report;
+import java.util.Set;
 
 /**
  * 
@@ -34,7 +35,7 @@ public class ProjectTest {
         this.cut.addReport(expectedReport);
         ProjectVersion searchCriteria = new ProjectVersion();
         searchCriteria.setId(expectedId);
-        List<Report> reportsForVersion = this.cut
+        Set<Report> reportsForVersion = this.cut
                 .getReportsForVersion(searchCriteria);
         assertThat(reportsForVersion.size(), is(1));
         assertTrue(reportsForVersion.contains(expectedReport));
