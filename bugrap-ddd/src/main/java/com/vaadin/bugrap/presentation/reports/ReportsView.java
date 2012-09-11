@@ -1,5 +1,6 @@
 package com.vaadin.bugrap.presentation.reports;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -7,16 +8,17 @@ import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
-import com.vaadin.cdi.VaadinUI;
 import com.vaadin.cdi.VaadinUIScoped;
-import com.vaadin.server.WrappedRequest;
-import com.vaadin.ui.UI;
+import com.vaadin.cdi.VaadinView;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@VaadinUI(mapping = "reports")
+@VaadinView("reports")
 @VaadinUIScoped
-public class ReportsUI extends UI {
+public class ReportsView extends CustomComponent implements View {
 
     private VerticalLayout layout;
     @Inject
@@ -29,8 +31,8 @@ public class ReportsUI extends UI {
     ReportEditor reportEditor;
     VerticalSplitPanel splitPanel;
 
-    @Override
-    protected void init(WrappedRequest request) {
+    @PostConstruct
+    public void init() {
         setSizeFull();
 
         layout = new VerticalLayout();
@@ -51,9 +53,9 @@ public class ReportsUI extends UI {
         // Show only the reports table
         splitPanel.setSplitPosition(100);
 
-        setContent(layout);
-
         topBar.populateProjects(projectRepository.getProjects());
+
+        setCompositionRoot(layout);
     }
 
     protected void onReportBug(@Observes ReportBugEvent reportBugEvent) {
@@ -68,8 +70,13 @@ public class ReportsUI extends UI {
 
             Project project = projectChangedEvent.getSelectedProject();
             reportListing.populateProjectVersions(project.getProjectVersions());
-
         }
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
 
     }
+
 }
