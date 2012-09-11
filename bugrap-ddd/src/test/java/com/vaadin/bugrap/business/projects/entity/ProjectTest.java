@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class ProjectTest {
         this.cut.addReport(expectedReport);
         ProjectVersion searchCriteria = new ProjectVersion();
         searchCriteria.setId(expectedId);
-        List<Report> reportsForVersion = this.cut
+        Set<Report> reportsForVersion = this.cut
                 .getReportsForVersion(searchCriteria);
         assertThat(reportsForVersion.size(), is(1));
         assertTrue(reportsForVersion.contains(expectedReport));
