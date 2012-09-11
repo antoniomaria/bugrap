@@ -106,6 +106,7 @@ public class TopBar extends CustomComponent {
 
         projectSelector = new ComboBox();
         projectSelector.setWidth(100, Unit.PERCENTAGE);
+        projectSelector.setImmediate(true);
 
         userButton = new Button("", userListener);
         logoutButton = new Button("Logout", logoutListener);
