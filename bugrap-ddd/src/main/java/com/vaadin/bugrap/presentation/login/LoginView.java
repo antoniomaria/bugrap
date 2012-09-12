@@ -13,6 +13,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -27,6 +28,9 @@ public class LoginView extends CustomComponent implements View {
     private TextField username;
     private PasswordField password;
 
+    @Inject
+    private javax.enterprise.event.Event<LoginEvent> loginEvent;
+
     private final Button.ClickListener loginButtonListener = new Button.ClickListener() {
 
         @Override
@@ -40,7 +44,6 @@ public class LoginView extends CustomComponent implements View {
         setSizeFull();
 
         VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
 
         username = new TextField();
         username.setInputPrompt("User name");
@@ -61,12 +64,11 @@ public class LoginView extends CustomComponent implements View {
     protected void performLogin() {
         try {
             jaasTools.login(username.getValue(), password.getValue());
-            Notification.show("Logged in!");
+            loginEvent.fire(new LoginEvent());
         } catch (ServletException e) {
             e.printStackTrace();
-            Notification.show("Failed to login");
+            Notification.show("Failed to login", Type.ERROR_MESSAGE);
         }
-
     }
 
     @Override

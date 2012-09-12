@@ -1,7 +1,9 @@
 package com.vaadin.bugrap.presentation;
 
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import com.vaadin.bugrap.presentation.login.LoginEvent;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.cdi.VaadinUIScoped;
@@ -35,6 +37,12 @@ public class BugrapUI extends UI {
             navigator.navigateTo("reports");
         } else {
             navigator.navigateTo("login");
+        }
+    }
+
+    protected void onLogin(@Observes LoginEvent loginEvent) {
+        if (jaasTools.isUserSignedIn()) {
+            navigator.navigateTo("reports");
         }
     }
 }
