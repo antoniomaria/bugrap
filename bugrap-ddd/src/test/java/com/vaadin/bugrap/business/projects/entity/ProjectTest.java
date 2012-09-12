@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vaadin.bugrap.business.reports.entity.Report;
+import java.util.Set;
 
 /**
  * 
