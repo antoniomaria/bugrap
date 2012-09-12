@@ -125,16 +125,13 @@ public class ProjectsUI extends UI {
 
     protected void createNewVersionForProject(Project project) {
         ProjectVersion version = new ProjectVersion();
-        version.setProject(project);
         version.setVersion(versionName.getValue().toString());
 
-        version = projectRepository.store(version);
+        project.addProjectVersion(version);
 
-        if (version.getId() > 0) {
-            Notification.show("Version saved");
-        } else {
-            Notification.show("Version creation failed", Type.ERROR_MESSAGE);
-        }
+        projectRepository.store(project);
+
+        Notification.show("Version saved");
 
         refreshVersionTable(project);
     }
