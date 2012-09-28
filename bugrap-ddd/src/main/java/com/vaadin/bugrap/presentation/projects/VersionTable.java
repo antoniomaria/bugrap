@@ -5,12 +5,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
-import com.vaadin.cdi.VaadinUIScoped;
+import com.vaadin.cdi.VaadinUI;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Table;
 
-@VaadinUIScoped
+@VaadinUI
 public class VersionTable extends CustomComponent {
 
     private Table table;

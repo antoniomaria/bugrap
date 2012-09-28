@@ -6,10 +6,9 @@ import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
 import com.vaadin.cdi.VaadinUI;
-import com.vaadin.cdi.VaadinUIScoped;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.server.WrappedRequest;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Notification;
@@ -19,8 +18,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@VaadinUI(mapping = "projects")
-@VaadinUIScoped
+@VaadinUI
 public class ProjectsUI extends UI {
 
     @Inject
@@ -69,7 +67,7 @@ public class ProjectsUI extends UI {
     };
 
     @Override
-    protected void init(WrappedRequest request) {
+    protected void init(VaadinRequest request) {
         setSizeFull();
 
         layout = new VerticalSplitPanel();

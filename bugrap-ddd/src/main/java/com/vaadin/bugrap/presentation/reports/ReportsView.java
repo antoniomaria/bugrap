@@ -8,7 +8,6 @@ import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
-import com.vaadin.cdi.VaadinUIScoped;
 import com.vaadin.cdi.VaadinView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -17,7 +16,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
 @VaadinView("reports")
-@VaadinUIScoped
 public class ReportsView extends CustomComponent implements View {
 
     private VerticalLayout layout;
