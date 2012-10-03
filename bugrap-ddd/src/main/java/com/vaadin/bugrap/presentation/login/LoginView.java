@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 
-import com.vaadin.cdi.VaadinUIScoped;
 import com.vaadin.cdi.VaadinView;
 import com.vaadin.cdi.component.JaasTools;
 import com.vaadin.navigator.View;
@@ -19,7 +18,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @VaadinView("login")
-@VaadinUIScoped
 public class LoginView extends CustomComponent implements View {
 
     @Inject

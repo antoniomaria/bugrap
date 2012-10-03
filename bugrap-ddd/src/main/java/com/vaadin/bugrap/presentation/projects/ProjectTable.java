@@ -5,13 +5,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
-import com.vaadin.cdi.VaadinUIScoped;
+import com.vaadin.cdi.VaadinUI;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Table;
 
-@VaadinUIScoped
+@VaadinUI
 public class ProjectTable extends CustomComponent {
 
     private Table table;
