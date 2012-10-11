@@ -11,12 +11,12 @@ abstract public class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Version
     private int consistencyVersion = -1;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -34,16 +34,32 @@ abstract public class AbstractEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof AbstractEntity) {
-            AbstractEntity r = (AbstractEntity) obj;
-            return getId() == r.getId();
+        if (obj == null) {
+            return false;
         }
-        return super.equals(obj);
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj.getClass().equals(this.getClass())) {
+
+            if (id == null) {
+                return super.equals(obj);
+            }
+
+            return this.getId().equals(((AbstractEntity) obj).getId());
+        }
+
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Long.valueOf(id).hashCode();
-    }
+        if (getId() == null) {
+            super.hashCode();
+        }
 
+        return id.hashCode();
+    }
 }

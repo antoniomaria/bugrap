@@ -162,8 +162,6 @@ public class ReportsListing extends CustomComponent {
         versionContainer.addAll(projectVersions);
 
         versionSelector.setContainerDataSource(versionContainer);
-        versionSelector
-                .setItemCaptionPropertyId(ProjectVersion.PROJECT_VERSION_CAPTION_PROPERTY);
 
         versionSelector.addListener(versionChangeListener);
     }

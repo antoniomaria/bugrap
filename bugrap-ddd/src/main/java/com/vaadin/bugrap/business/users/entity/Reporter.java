@@ -1,28 +1,22 @@
 package com.vaadin.bugrap.business.users.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import com.vaadin.bugrap.business.AbstractEntity;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@NamedQuery(name = Reporter.reporterByNameOrEmail, query = "SELECT r FROM Reporter r WHERE r.email = :email or r.name = :name")
 public class Reporter extends AbstractEntity {
-    private static final String PREFIX = "com.vaadin.bugrap.business.users.entity.Reporter.";
-    public static final String reporterByNameOrEmail = "reporterByNameOrEmail";
-
+    private String username;
     private String name;
-
     private String email;
 
-    private String password;
+    public String getUsername() {
+        return username;
+    }
 
-    private boolean admin = false;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getName() {
         return name;
@@ -40,28 +34,8 @@ public class Reporter extends AbstractEntity {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
     @Override
     public String toString() {
         return name;
-    }
-
-    public boolean equals(Reporter reporter) {
-        return getId() == reporter.getId();
     }
 }

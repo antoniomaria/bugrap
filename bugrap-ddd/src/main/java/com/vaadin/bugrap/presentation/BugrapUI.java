@@ -18,9 +18,6 @@ public class BugrapUI extends UI {
     @Inject
     private CDIViewProvider viewProvider;
 
-    @Inject
-    private JaasTools jaasTools;
-
     private Navigator navigator;
 
     @Override
@@ -33,7 +30,7 @@ public class BugrapUI extends UI {
         navigator = new Navigator(this, (ViewDisplay) viewDisplay);
         navigator.addProvider(viewProvider);
 
-        if (jaasTools.isUserSignedIn()) {
+        if (JaasTools.isUserSignedIn()) {
             navigator.navigateTo("reports");
         } else {
             navigator.navigateTo("login");
@@ -41,7 +38,7 @@ public class BugrapUI extends UI {
     }
 
     protected void onLogin(@Observes LoginEvent loginEvent) {
-        if (jaasTools.isUserSignedIn()) {
+        if (JaasTools.isUserSignedIn()) {
             navigator.navigateTo("reports");
         }
     }

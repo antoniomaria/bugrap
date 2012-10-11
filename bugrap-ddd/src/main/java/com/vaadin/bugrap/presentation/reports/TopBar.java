@@ -146,11 +146,6 @@ public class TopBar extends CustomComponent {
                 Project.class);
         projectsContainer.addAll(projects);
 
-        projectSelector.setContainerDataSource(projectsContainer);
-        projectSelector
-                .setItemCaptionPropertyId(Project.PROJECT_NAME_CAPTION_PROPERTY);
-
-        projectSelector.addListener(projectChangeListener);
     }
 
     public void populateCurrentUser(Reporter user) {

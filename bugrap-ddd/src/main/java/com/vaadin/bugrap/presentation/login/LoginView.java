@@ -20,9 +20,6 @@ import com.vaadin.ui.VerticalLayout;
 @VaadinView("login")
 public class LoginView extends CustomComponent implements View {
 
-    @Inject
-    private JaasTools jaasTools;
-
     private TextField username;
     private PasswordField password;
 
@@ -61,7 +58,7 @@ public class LoginView extends CustomComponent implements View {
 
     protected void performLogin() {
         try {
-            jaasTools.login(username.getValue(), password.getValue());
+            JaasTools.login(username.getValue(), password.getValue());
             loginEvent.fire(new LoginEvent());
         } catch (ServletException e) {
             e.printStackTrace();

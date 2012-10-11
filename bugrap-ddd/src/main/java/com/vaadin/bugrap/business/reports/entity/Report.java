@@ -1,63 +1,50 @@
 package com.vaadin.bugrap.business.reports.entity;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.vaadin.bugrap.business.AbstractEntity;
-import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = Report.unassignedReports, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version IS NULL"),
-        @NamedQuery(name = Report.forVersion, query = "SELECT r FROM Report r WHERE r.project = :proj AND r.version = :ver"),
-        @NamedQuery(name = Report.findUser, query = "SELECT r FROM Reporter r WHERE r.name = :user AND r.password = :password"),
-        @NamedQuery(name = Report.latest, query = "SELECT r FROM Report r ORDER BY r.timestamp DESC"),
-        @NamedQuery(name = Report.countWithStatus, query = "SELECT COUNT(r) FROM Report r WHERE r.version=:pv AND r.status=:status") })
 public class Report extends AbstractEntity {
 
-    static final String PREFIX = "com.vaadin.bugrap.business.reports.entity.Report.";
-    public static final String unassignedReports = PREFIX + "unassignedReports";
-    public static final String forVersion = PREFIX + "forVersion";
-    public static final String findUser = PREFIX + "findUser";
-    public static final String latest = PREFIX + "latest";
-    public static final String countWithStatus = PREFIX + "countWithStatus";
-    @Column(name = "type")
+    @Enumerated
     private ReportType type;
+
     @Enumerated
-    @Column(name = "status")
     private ReportStatus status;
+
     @Enumerated
-    @Column(name = "resolution")
     private ReportResolution resolution;
-    @Column(name = "summary", columnDefinition = "VARCHAR(5000)")
+
+    @Column(columnDefinition = "VARCHAR(5000)")
     private String summary;
-    @Column(name = "description", columnDefinition = "VARCHAR(5000)")
+
+    @Column(columnDefinition = "VARCHAR(5000)")
     private String description;
+
     @ManyToOne
-    private Project project;
-    @ManyToOne
-    private ProjectVersion version;
-    @ManyToOne
-    private ProjectVersion occursIn;
+    private ProjectVersion projectVersion;
+
     @Enumerated
     private ReportPriority priority;
+
     @ManyToOne
     private Reporter assigned;
+
     @ManyToOne
     private Reporter author;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
@@ -83,23 +70,6 @@ public class Report extends AbstractEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-        this.project.addReport(this);
-    }
-
-    public ProjectVersion getVersion() {
-        return version;
-    }
-
-    public void setVersion(ProjectVersion version) {
-        this.version = version;
     }
 
     public ReportPriority getPriority() {
@@ -134,12 +104,12 @@ public class Report extends AbstractEntity {
         this.resolution = resolution;
     }
 
-    public ProjectVersion getOccursIn() {
-        return occursIn;
+    public ProjectVersion getProjectVersion() {
+        return projectVersion;
     }
 
-    public void setOccursIn(ProjectVersion occursIn) {
-        this.occursIn = occursIn;
+    public void setProjectVersion(ProjectVersion occursIn) {
+        this.projectVersion = occursIn;
     }
 
     public Date getTimestamp() {
@@ -148,16 +118,6 @@ public class Report extends AbstractEntity {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public boolean knowsProjectVersion(ProjectVersion otherVersion) {
-        if (otherVersion == null) {
-            throw new IllegalArgumentException("ProjectVersion is null");
-        }
-        if (this.version == null) {
-            return false;
-        }
-        return (this.version.getId() == otherVersion.getId());
     }
 
     @PrePersist
@@ -219,33 +179,5 @@ public class Report extends AbstractEntity {
 
     public boolean stringLike(String origin, String searchEntry) {
         return origin.toLowerCase().contains(searchEntry.toLowerCase());
-    }
-
-    @Transient
-    public String getReported() {
-        long sec = (new GregorianCalendar().getTimeInMillis() - timestamp
-                .getTime()) / 1000;
-        // return minutes:
-        if (sec < 3600) // less than one hour
-        {
-            return Integer.toString((int) (sec / 60)) + " mins ago";
-        } // return hours:
-        else if (sec < (60 * 60 * 24 * 2)) // less than two days
-        {
-            return Integer.toString((int) (sec / (60 * 60))) + " hours ago";
-        } // return days:
-        else if (sec < (60 * 60 * 24 * 10)) // less than 10 days
-        {
-            return Integer.toString((int) (sec / (60 * 60 * 24))) + " days ago";
-        } // return weeks:
-        else if (sec < (60 * 60 * 24 * 35)) // less than 35 days
-        {
-            return Integer.toString((int) (sec / (60 * 60 * 24 * 7)))
-                    + " weeks ago";
-        } // return months:
-        else {
-            return Integer.toString((int) (sec / (60 * 60 * 24 * 30)))
-                    + " months ago";
-        }
     }
 }

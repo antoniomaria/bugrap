@@ -116,9 +116,6 @@ public class ProjectsUI extends UI {
     protected void refreshVersionsForSelectedProject() {
         Project project = projects.getSelectedProject();
 
-        if (project != null) {
-            versions.populateVersions(projectRepository.getVersions(project));
-        }
     }
 
     protected void createNewVersionForProject(Project project) {
@@ -154,6 +151,6 @@ public class ProjectsUI extends UI {
     }
 
     private void refreshVersionTable(Project project) {
-        versions.populateVersions(projectRepository.getVersions(project));
+        versions.populateVersions(project.getProjectVersions());
     }
 }

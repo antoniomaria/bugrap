@@ -1,45 +1,28 @@
 package com.vaadin.bugrap.business.reports.entity;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import com.vaadin.bugrap.business.AbstractEntity;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 
 @Entity
-@NamedQuery(name = Comment.commentsForReport, query = "SELECT c FROM Comment c WHERE c.report=:rep")
 public class Comment extends AbstractEntity {
-
-    public static final String PREFIX = "com.vaadin.bugrap.business.reports.entity.Comment.";
-    public static final String commentsForReport = PREFIX + "commentsForReport";
 
     @ManyToOne
     private Reporter author;
 
-    // @Column(name = "COMMENT", columnDefinition = "LONGVARCHAR")
-    @Column(name = "COMMENT", columnDefinition = "VARCHAR(5000)")
     private String comment;
 
     @Enumerated
     private CommentType type;
-
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
-    private byte[] attachment;
 
     private String attachmentName;
 
@@ -73,14 +56,6 @@ public class Comment extends AbstractEntity {
         this.timestamp = timestamp;
     }
 
-    public byte[] getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(byte[] attachment) {
-        this.attachment = attachment;
-    }
-
     public CommentType getType() {
         return type;
     }
@@ -111,28 +86,4 @@ public class Comment extends AbstractEntity {
     public void setReport(Report report) {
         this.report = report;
     }
-
-    @Transient
-    public String getReported() {
-        long sec = (new GregorianCalendar().getTimeInMillis() - timestamp
-                .getTime()) / 1000;
-        // return minutes:
-        if (sec < 3600) // less than one hour
-            return Integer.toString((int) (sec / 60)) + " mins ago";
-        // return hours:
-        else if (sec < (60 * 60 * 24 * 2)) // less than two days
-            return Integer.toString((int) (sec / (60 * 60))) + " hours ago";
-        // return days:
-        else if (sec < (60 * 60 * 24 * 10)) // less than 10 days
-            return Integer.toString((int) (sec / (60 * 60 * 24))) + " days ago";
-        // return weeks:
-        else if (sec < (60 * 60 * 24 * 35)) // less than 35 days
-            return Integer.toString((int) (sec / (60 * 60 * 24 * 7)))
-                    + " weeks ago";
-        // return months:
-        else
-            return Integer.toString((int) (sec / (60 * 60 * 24 * 30)))
-                    + " months ago";
-    }
-
 }
