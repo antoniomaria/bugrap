@@ -19,14 +19,19 @@ import com.vaadin.ui.VerticalSplitPanel;
 public class ReportsView extends CustomComponent implements View {
 
     private VerticalLayout layout;
+
     @Inject
     ProjectRepository projectRepository;
+
     @Inject
     TopBar topBar;
+
     @Inject
     ReportsListing reportListing;
+
     @Inject
     ReportEditor reportEditor;
+
     VerticalSplitPanel splitPanel;
 
     @PostConstruct

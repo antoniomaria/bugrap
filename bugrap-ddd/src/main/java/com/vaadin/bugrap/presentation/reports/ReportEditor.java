@@ -10,7 +10,6 @@ import com.vaadin.bugrap.business.reports.entity.ReportType;
 import com.vaadin.bugrap.presentation.reports.events.OpenReportWindowEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportCreationCancelledEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportSavedEvent;
-import com.vaadin.cdi.VaadinUI;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanItem;
@@ -24,7 +23,6 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-@VaadinUI
 public class ReportEditor extends CustomComponent {
 
     private VerticalLayout layout;

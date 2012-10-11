@@ -9,7 +9,6 @@ import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
-import com.vaadin.cdi.VaadinUI;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -22,7 +21,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-@VaadinUI
 public class TopBar extends CustomComponent {
 
     private VerticalLayout layout;

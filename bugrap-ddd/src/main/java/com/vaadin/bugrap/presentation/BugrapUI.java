@@ -8,9 +8,8 @@ import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.cdi.component.JaasTools;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.Navigator.SimpleViewDisplay;
+import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.UI;
 
 @VaadinUI
@@ -26,10 +25,12 @@ public class BugrapUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-        SimpleViewDisplay viewDisplay = new SimpleViewDisplay();
+        setSizeFull();
+
+        BugrapViewDisplay viewDisplay = new BugrapViewDisplay();
         setContent(viewDisplay);
 
-        navigator = new Navigator(this, (ComponentContainer)viewDisplay);
+        navigator = new Navigator(this, (ViewDisplay) viewDisplay);
         navigator.addProvider(viewProvider);
 
         if (jaasTools.isUserSignedIn()) {

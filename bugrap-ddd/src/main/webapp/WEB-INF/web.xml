@@ -2,36 +2,29 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	<display-name>bugrap-ddd</display-name>
+	<display-name>VaadinCDITest</display-name>
 
 	<listener>
 		<listener-class>com.vaadin.cdi.ContextDeployer</listener-class>
 	</listener>
 
-	<servlet>
-		<servlet-name>Bugrap</servlet-name>
-		<servlet-class>com.vaadin.cdi.VaadinCDIServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Bugrap</servlet-name>
-		<url-pattern>/bugrap/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Bugrap</servlet-name>
-		<url-pattern>/VAADIN/*</url-pattern>
-	</servlet-mapping>
-
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Bugrap</web-resource-name>
-			<url-pattern>/bugrap/*</url-pattern>
+			<url-pattern>/dummyurl/*</url-pattern>
 		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
 	</security-constraint>
 
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>other</realm-name>
+	</login-config>
+
 	<security-role>
-		<role-name>myrole</role-name>
+		<role-name>*</role-name>
 	</security-role>
 
 </web-app>
