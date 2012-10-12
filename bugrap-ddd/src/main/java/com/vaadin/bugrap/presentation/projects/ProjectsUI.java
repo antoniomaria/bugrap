@@ -22,7 +22,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 public class ProjectsUI extends UI {
 
     @Inject
-    private ProjectBoundary projectRepository;
+    private ProjectBoundary projectBoundary;
 
     @Inject
     private ProjectTable projects;
@@ -115,16 +115,14 @@ public class ProjectsUI extends UI {
 
     protected void refreshVersionsForSelectedProject() {
         Project project = projects.getSelectedProject();
-
+        refreshVersionTable(project);
     }
 
     protected void createNewVersionForProject(Project project) {
-        ProjectVersion version = new ProjectVersion();
-        version.setVersion(versionName.getValue().toString());
+        ProjectVersion version = project.addProjectVersion(versionName
+                .getValue());
 
-        project.addProjectVersion(version);
-
-        projectRepository.store(project);
+        projectBoundary.save();
 
         Notification.show("Version saved");
 
@@ -132,10 +130,9 @@ public class ProjectsUI extends UI {
     }
 
     protected void createNewProject() {
-        Project project = new Project();
-        project.setName(projectName.getValue().toString());
-
-        project = projectRepository.store(project);
+        Project project = projectBoundary.createProject();
+        project.setName(projectName.getValue());
+        projectBoundary.save();
 
         if (project.getId() > 0) {
             Notification.show("Project saved");
@@ -147,7 +144,7 @@ public class ProjectsUI extends UI {
     }
 
     private void refreshProjectTable() {
-        projects.populateProjects(projectRepository.getProjects());
+        projects.populateProjects(projectBoundary.getProjects());
     }
 
     private void refreshVersionTable(Project project) {

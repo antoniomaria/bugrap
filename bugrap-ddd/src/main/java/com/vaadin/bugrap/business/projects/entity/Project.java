@@ -33,11 +33,14 @@ public class Project extends AbstractEntity {
         projectVersions = new ArrayList<ProjectVersion>();
     }
 
-    public void addProjectVersion(ProjectVersion projectVersion) {
-        if (!projectVersions.contains(projectVersion)) {
-            projectVersions.add(projectVersion);
-            projectVersion.setProject(this);
-        }
+    public ProjectVersion addProjectVersion(String versionName) {
+        ProjectVersion version = new ProjectVersion();
+        version.setVersion(versionName);
+        version.setProject(this);
+
+        projectVersions.add(version);
+
+        return version;
     }
 
     public List<ProjectVersion> getProjectVersions() {
