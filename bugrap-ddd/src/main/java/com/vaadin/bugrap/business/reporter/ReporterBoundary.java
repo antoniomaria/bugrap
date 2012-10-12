@@ -1,6 +1,8 @@
 package com.vaadin.bugrap.business.reporter;
 
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +16,7 @@ import com.vaadin.bugrap.business.users.entity.Reporter;
 
 @Stateful
 @SessionScoped
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class ReporterBoundary {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)

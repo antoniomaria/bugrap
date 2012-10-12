@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import com.vaadin.bugrap.business.reporter.ReporterBoundary;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 import com.vaadin.bugrap.presentation.login.LoginEvent;
+import com.vaadin.bugrap.presentation.reports.ReportsView;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.cdi.VaadinUI;
 import com.vaadin.cdi.component.JaasTools;
@@ -40,7 +41,11 @@ public class BugrapUI extends UI {
         navigator.setErrorProvider(new BugrapErrorViewProvider());
 
         if (JaasTools.isUserSignedIn()) {
-            navigator.navigateTo("reports");
+            if (JaasTools.hasAccessToView(ReportsView.class)) {
+                navigator.navigateTo("reports");
+            } else {
+                Notification.show("No access to reports view");
+            }
         } else {
             navigator.navigateTo("login");
         }
@@ -58,7 +63,13 @@ public class BugrapUI extends UI {
                 Reporter reporter = reporterBoundary.getReporter(loginEvent
                         .getUsername());
                 getSession().setAttribute(Reporter.class, reporter);
-                navigator.navigateTo("reports");
+
+                if (JaasTools.hasAccessToView(ReportsView.class)) {
+                    navigator.navigateTo("reports");
+                } else {
+                    Notification.show("No access to reports view");
+                }
+
             }
         } catch (ServletException e) {
             Notification.show("Error logging in", Type.ERROR_MESSAGE);

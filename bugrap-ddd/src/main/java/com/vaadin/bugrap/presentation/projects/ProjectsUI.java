@@ -2,7 +2,7 @@ package com.vaadin.bugrap.presentation.projects;
 
 import javax.inject.Inject;
 
-import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
+import com.vaadin.bugrap.business.projects.ProjectBoundary;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
 import com.vaadin.cdi.VaadinUI;
@@ -22,7 +22,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 public class ProjectsUI extends UI {
 
     @Inject
-    private ProjectRepository projectRepository;
+    private ProjectBoundary projectRepository;
 
     @Inject
     private ProjectTable projects;

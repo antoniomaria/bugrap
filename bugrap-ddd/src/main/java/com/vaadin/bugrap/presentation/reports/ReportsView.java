@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import com.vaadin.bugrap.business.projects.boundary.ProjectRepository;
+import com.vaadin.bugrap.business.projects.ProjectBoundary;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
@@ -15,13 +15,13 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@VaadinView(value = "reports", rolesAllowed = { "reporter" })
+@VaadinView(value = "reports")
 public class ReportsView extends CustomComponent implements View {
 
     private VerticalLayout layout;
 
     @Inject
-    ProjectRepository projectRepository;
+    ProjectBoundary projectRepository;
 
     @Inject
     TopBar topBar;
