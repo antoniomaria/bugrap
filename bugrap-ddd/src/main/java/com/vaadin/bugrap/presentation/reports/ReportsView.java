@@ -15,7 +15,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@VaadinView(value = "reports")
+@VaadinView(value = "reports", rolesAllowed = { "reporter" })
 public class ReportsView extends CustomComponent implements View {
 
     private VerticalLayout layout;

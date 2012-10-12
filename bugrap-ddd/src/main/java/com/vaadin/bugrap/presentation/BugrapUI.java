@@ -37,6 +37,7 @@ public class BugrapUI extends UI {
 
         navigator = new Navigator(this, (ViewDisplay) viewDisplay);
         navigator.addProvider(viewProvider);
+        navigator.setErrorProvider(new BugrapErrorViewProvider());
 
         if (JaasTools.isUserSignedIn()) {
             navigator.navigateTo("reports");
