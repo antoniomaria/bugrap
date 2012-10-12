@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @MappedSuperclass
@@ -32,6 +33,11 @@ abstract public class AbstractEntity {
         this.consistencyVersion = consistencyVersion;
     }
 
+    @Transient
+    public boolean isPersistent() {
+        return id != null;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -44,7 +50,7 @@ abstract public class AbstractEntity {
 
         if (obj.getClass().equals(this.getClass())) {
 
-            if (id == null) {
+            if (!isPersistent()) {
                 return super.equals(obj);
             }
 

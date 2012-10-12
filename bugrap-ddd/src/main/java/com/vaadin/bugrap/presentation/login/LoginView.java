@@ -2,17 +2,13 @@ package com.vaadin.bugrap.presentation.login;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 
 import com.vaadin.cdi.VaadinView;
-import com.vaadin.cdi.component.JaasTools;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -39,6 +35,8 @@ public class LoginView extends CustomComponent implements View {
         setSizeFull();
 
         VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        layout.setSpacing(true);
 
         username = new TextField();
         username.setInputPrompt("User name");
@@ -57,13 +55,8 @@ public class LoginView extends CustomComponent implements View {
     }
 
     protected void performLogin() {
-        try {
-            JaasTools.login(username.getValue(), password.getValue());
-            loginEvent.fire(new LoginEvent());
-        } catch (ServletException e) {
-            e.printStackTrace();
-            Notification.show("Failed to login", Type.ERROR_MESSAGE);
-        }
+        loginEvent
+                .fire(new LoginEvent(username.getValue(), password.getValue()));
     }
 
     @Override

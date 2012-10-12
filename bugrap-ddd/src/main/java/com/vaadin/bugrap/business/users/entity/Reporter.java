@@ -1,12 +1,17 @@
 package com.vaadin.bugrap.business.users.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import com.vaadin.bugrap.business.AbstractEntity;
 
 @Entity
 public class Reporter extends AbstractEntity {
+
+    @Column(nullable = false, unique = true)
     private String username;
+    public static String PROPERTY_USERNAME = "username";
+
     private String name;
     private String email;
 
