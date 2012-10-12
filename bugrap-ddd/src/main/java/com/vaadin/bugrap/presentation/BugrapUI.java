@@ -62,6 +62,17 @@ public class BugrapUI extends UI {
         } catch (ServletException e) {
             Notification.show("Error logging in", Type.ERROR_MESSAGE);
         }
+    }
 
+    protected void onLogout(@Observes LogoutEvent logoutEvent) {
+        try {
+            JaasTools.logout();
+            getSession().setAttribute(Reporter.class, null);
+            navigator.navigateTo("login");
+        } catch (ServletException e) {
+            Notification.show(
+                    "Error logging out, sorry you're apparently stuck here",
+                    Type.ERROR_MESSAGE);
+        }
     }
 }

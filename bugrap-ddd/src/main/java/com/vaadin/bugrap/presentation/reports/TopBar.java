@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.users.entity.Reporter;
+import com.vaadin.bugrap.presentation.LogoutEvent;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -45,6 +46,9 @@ public class TopBar extends CustomComponent {
     @Inject
     private javax.enterprise.event.Event<ReportBugEvent> reportBugEvent;
 
+    @Inject
+    private javax.enterprise.event.Event<LogoutEvent> logoutEvent;
+
     private final ValueChangeListener projectChangeListener = new ValueChangeListener() {
 
         @Override
@@ -64,6 +68,7 @@ public class TopBar extends CustomComponent {
 
         @Override
         public void buttonClick(ClickEvent event) {
+            logoutEvent.fire(new LogoutEvent());
         }
     };
 
