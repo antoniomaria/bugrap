@@ -10,6 +10,7 @@ import com.vaadin.bugrap.presentation.login.LoginEvent;
 import com.vaadin.bugrap.presentation.reports.ReportsView;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
+import com.vaadin.cdi.access.JaasAccessControl;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
@@ -53,7 +54,7 @@ public class BugrapUI extends UI {
     protected void onLogin(@Observes
     LoginEvent loginEvent) {
         try {
-            JaasTools.login(loginEvent.getUsername(), loginEvent.getPassword());
+            JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
 
             if (JaasTools.isUserSignedIn()) {
                 if (!reporterBoundary.reporterExists(loginEvent.getUsername())) {
@@ -77,7 +78,7 @@ public class BugrapUI extends UI {
     protected void onLogout(@Observes
     LogoutEvent logoutEvent) {
         try {
-            JaasTools.logout();
+            JaasAccessControl.logout();
             getSession().setAttribute(Reporter.class, null);
             navigator.navigateTo("login");
         } catch (ServletException e) {
