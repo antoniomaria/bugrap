@@ -1,5 +1,7 @@
 package com.vaadin.bugrap.presentation;
 
+import java.security.Principal;
+
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -40,7 +42,7 @@ public class BugrapUI extends UI {
         navigator.addProvider(viewProvider);
         navigator.setErrorProvider(new BugrapErrorViewProvider());
 
-        if (JaasTools.isUserSignedIn()) {
+        if (isUserSignedIn()) {
             if (JaasTools.hasAccessToView(ReportsView.class)) {
                 navigator.navigateTo("reports");
             } else {
@@ -56,14 +58,14 @@ public class BugrapUI extends UI {
         try {
             JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
 
-            if (JaasTools.isUserSignedIn()) {
+            if (isUserSignedIn()) {
                 if (!reporterBoundary.reporterExists(loginEvent.getUsername())) {
                     reporterBoundary.createNewReporter(loginEvent.getUsername());
                 }
                 Reporter reporter = reporterBoundary.getReporter(loginEvent.getUsername());
                 getSession().setAttribute(Reporter.class, reporter);
 
-                if (JaasTools.hasAccessToView(ReportsView.class)) {
+                if (hasAccessToView(ReportsView.class)) {
                     navigator.navigateTo("reports");
                 } else {
                     Notification.show("No access to reports view");
@@ -84,5 +86,23 @@ public class BugrapUI extends UI {
         } catch (ServletException e) {
             Notification.show("Error logging out, sorry you're apparently stuck here", Type.ERROR_MESSAGE);
         }
+    }
+
+    public boolean isUserInRole(String role) {
+        return JaasAccessControl.getCurrentRequest().isUserInRole(role);
+    }
+
+    public String getPrincipalName() {
+        Principal principal = JaasAccessControl.getCurrentRequest().getUserPrincipal();
+        if (principal != null) {
+            return principal.getName();
+        }
+
+        return null;
+    }
+
+    public boolean isUserSignedIn() {
+        Principal principal = JaasAccessControl.getCurrentRequest().getUserPrincipal();
+        return principal != null;
     }
 }
