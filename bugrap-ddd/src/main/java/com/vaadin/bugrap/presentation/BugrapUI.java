@@ -8,9 +8,8 @@ import com.vaadin.bugrap.business.reporter.ReporterBoundary;
 import com.vaadin.bugrap.business.users.entity.Reporter;
 import com.vaadin.bugrap.presentation.login.LoginEvent;
 import com.vaadin.bugrap.presentation.reports.ReportsView;
+import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
-import com.vaadin.cdi.VaadinUI;
-import com.vaadin.cdi.component.JaasTools;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
@@ -18,7 +17,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
-@VaadinUI
+@CDIUI
 public class BugrapUI extends UI {
 
     @Inject
@@ -51,17 +50,16 @@ public class BugrapUI extends UI {
         }
     }
 
-    protected void onLogin(@Observes LoginEvent loginEvent) {
+    protected void onLogin(@Observes
+    LoginEvent loginEvent) {
         try {
             JaasTools.login(loginEvent.getUsername(), loginEvent.getPassword());
 
             if (JaasTools.isUserSignedIn()) {
                 if (!reporterBoundary.reporterExists(loginEvent.getUsername())) {
-                    reporterBoundary
-                            .createNewReporter(loginEvent.getUsername());
+                    reporterBoundary.createNewReporter(loginEvent.getUsername());
                 }
-                Reporter reporter = reporterBoundary.getReporter(loginEvent
-                        .getUsername());
+                Reporter reporter = reporterBoundary.getReporter(loginEvent.getUsername());
                 getSession().setAttribute(Reporter.class, reporter);
 
                 if (JaasTools.hasAccessToView(ReportsView.class)) {
@@ -76,15 +74,14 @@ public class BugrapUI extends UI {
         }
     }
 
-    protected void onLogout(@Observes LogoutEvent logoutEvent) {
+    protected void onLogout(@Observes
+    LogoutEvent logoutEvent) {
         try {
             JaasTools.logout();
             getSession().setAttribute(Reporter.class, null);
             navigator.navigateTo("login");
         } catch (ServletException e) {
-            Notification.show(
-                    "Error logging out, sorry you're apparently stuck here",
-                    Type.ERROR_MESSAGE);
+            Notification.show("Error logging out, sorry you're apparently stuck here", Type.ERROR_MESSAGE);
         }
     }
 }

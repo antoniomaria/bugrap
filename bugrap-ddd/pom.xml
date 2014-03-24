@@ -23,6 +23,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <vaadin.version>7.1.12</vaadin.version>
 	</properties>
 
 	<repositories>
@@ -56,31 +57,32 @@
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-server</artifactId>
-			<version>7.0-SNAPSHOT</version>
+			<version>${vaadin.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-shared</artifactId>
-			<version>7.0-SNAPSHOT</version>
+			<version>${vaadin.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiled</artifactId>
-			<version>7.0-SNAPSHOT</version>
+			<version>${vaadin.version}</version>
 			<scope>compile</scope>
 		</dependency>
+    
 		<dependency>
 			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-themes-compiled</artifactId>
-			<version>7.0-SNAPSHOT</version>
+			<artifactId>vaadin-themes</artifactId>
+			<version>${vaadin.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-cdi</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0.0.alpha1</version>
 			<scope>compile</scope>
 		</dependency>
 

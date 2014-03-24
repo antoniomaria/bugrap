@@ -8,14 +8,14 @@ import com.vaadin.bugrap.business.projects.ProjectBoundary;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.presentation.reports.events.ProjectChangedEvent;
 import com.vaadin.bugrap.presentation.reports.events.ReportBugEvent;
-import com.vaadin.cdi.VaadinView;
+import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@VaadinView(value = "reports")
+@CDIView(value = "reports")
 public class ReportsView extends CustomComponent implements View {
 
     private VerticalLayout layout;
@@ -61,14 +61,15 @@ public class ReportsView extends CustomComponent implements View {
         setCompositionRoot(layout);
     }
 
-    protected void onReportBug(@Observes ReportBugEvent reportBugEvent) {
+    protected void onReportBug(@Observes
+    ReportBugEvent reportBugEvent) {
         // Show only the editor component
         splitPanel.setSplitPosition(50);
         reportEditor.initializeForNewReport();
     }
 
-    protected void onProjectChanged(
-            @Observes ProjectChangedEvent projectChangedEvent) {
+    protected void onProjectChanged(@Observes
+    ProjectChangedEvent projectChangedEvent) {
         if (projectChangedEvent.isProjectSelected()) {
 
             Project project = projectChangedEvent.getSelectedProject();

@@ -3,7 +3,7 @@ package com.vaadin.bugrap.presentation.login;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import com.vaadin.cdi.VaadinView;
+import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
@@ -13,7 +13,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-@VaadinView("login")
+@CDIView("login")
 public class LoginView extends CustomComponent implements View {
 
     private TextField username;
@@ -55,8 +55,7 @@ public class LoginView extends CustomComponent implements View {
     }
 
     protected void performLogin() {
-        loginEvent
-                .fire(new LoginEvent(username.getValue(), password.getValue()));
+        loginEvent.fire(new LoginEvent(username.getValue(), password.getValue()));
     }
 
     @Override

@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import com.vaadin.bugrap.business.projects.ProjectBoundary;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
-import com.vaadin.cdi.VaadinUI;
+import com.vaadin.cdi.CDIUI;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.VaadinRequest;
@@ -18,7 +18,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@VaadinUI
+@CDIUI
 public class ProjectsUI extends UI {
 
     @Inject
@@ -82,8 +82,7 @@ public class ProjectsUI extends UI {
         projectName = new TextField();
         projectName.setInputPrompt("Name for new project...");
 
-        Button createProject = new Button("Create project",
-                createProjectListener);
+        Button createProject = new Button("Create project", createProjectListener);
 
         projects.addValueChangeListener(projectChangeListener);
 
@@ -96,8 +95,7 @@ public class ProjectsUI extends UI {
         VerticalLayout bottomContent = new VerticalLayout();
         bottomContent.setSizeFull();
 
-        Button createVersion = new Button("Create version",
-                createVersionListener);
+        Button createVersion = new Button("Create version", createVersionListener);
 
         versionName = new TextField();
         versionName.setInputPrompt("Name for version...");
@@ -119,8 +117,7 @@ public class ProjectsUI extends UI {
     }
 
     protected void createNewVersionForProject(Project project) {
-        ProjectVersion version = project.addProjectVersion(versionName
-                .getValue());
+        ProjectVersion version = project.addProjectVersion(versionName.getValue());
 
         projectBoundary.save();
 
