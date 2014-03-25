@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import com.vaadin.bugrap.business.projects.ProjectBoundary;
 import com.vaadin.bugrap.business.projects.entity.Project;
 import com.vaadin.bugrap.business.projects.entity.ProjectVersion;
-import com.vaadin.cdi.CDIUI;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.VaadinRequest;
@@ -18,7 +17,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@CDIUI
+// @CDIUI
 public class ProjectsUI extends UI {
 
     @Inject
