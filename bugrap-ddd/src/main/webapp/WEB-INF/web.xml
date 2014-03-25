@@ -3,10 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>VaadinCDITest</display-name>
-
+  <!-- 
 	<listener>
-		<listener-class>com.vaadin.cdi.ContextDeployer</listener-class>
+		<listener-class>com.vaadin.cdi.internal.ContextDeployer</listener-class>
 	</listener>
+   -->
 
 	<security-constraint>
 		<web-resource-collection>

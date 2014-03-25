@@ -1,0 +1,1 @@
+https://vaadin.com/wiki/-/wiki/Main/Programmatic%20Login%20to%20Vaadin%20application%20with%20JAAS%20utilizing%20JavaEE6%20features%20and%20Spring%20injection
